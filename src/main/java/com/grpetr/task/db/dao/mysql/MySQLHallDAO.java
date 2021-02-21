@@ -15,11 +15,11 @@ public class MySQLHallDAO implements HallDAO {
             "SELECT id, hall_name FROM halls LIMIT ? OFFSET ? ";
     private static final String DELETE_HALL_BY_YALL_ID = "DELETE FROM halls WHERE id = ?";
     private static final String GET_NUMBER_OF_HALLS = "SELECT COUNT(*) as halls_number FROM halls";
-    private static final String CHECK_WHETHER_HALL_IS_OCCUPIED = "SELECT COUNT (*) FROM ( " +
+    private static final String CHECK_WHETHER_HALL_IS_OCCUPIED = "SELECT COUNT(*) FROM ( " +
             "SELECT exposition.date_in, exposition.date_out FROM halls h " +
             "LEFT JOIN exposition_halls ON exposition_halls.halls_id = h.id " +
             "LEFT JOIN exposition ON exposition.id = exposition_halls.exposition_id " +
-            "WHERE h.id = ? and ? between exposition.date_in and exposition.date_out) as u";
+            "WHERE h.id = ? and ? between exposition.date_in and exposition.date_out) as u ";
     private static final String GET_HALL_BY_ID = "SELECT id, hall_name from halls WHERE id = ?";
 
     /**

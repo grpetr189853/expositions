@@ -24,7 +24,7 @@ public class CreateHallCommand extends Command {
 
         log.debug("Create Hall Command starts");
         String forward = Path.PAGE__ERROR_PAGE;
-        int affectedRows = 0;
+        int newRowId = 0;
         String errorMessage = null;
         request.getSession().removeAttribute("sendRedirectExpositions");
         request.getSession().removeAttribute("sendRedirectHalls");
@@ -41,8 +41,8 @@ public class CreateHallCommand extends Command {
                 return forward;
             }
             HallDAO hallDAO = daoFactory.getHallDAO();
-            affectedRows = hallDAO.setNewHall(con, hallName);
-            if(affectedRows == 1){
+            newRowId = hallDAO.setNewHall(con, hallName);
+            if(newRowId != 0){
                 forward  = Path.PAGE__ADMIN_HALLS;
                 request.getSession().setAttribute("sendRedirectHalls", true);
                 log.trace("Set the request attribute: sendRedirectHalls --> " + true);

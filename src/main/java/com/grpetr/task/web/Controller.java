@@ -76,7 +76,13 @@ public class Controller extends HttpServlet{
             RequestDispatcher disp = request.getRequestDispatcher(forward);
             disp.forward(request, response);
         } else {
-            response.sendRedirect(forward);
+            Object sendRedirectExpositions = request.getSession().getAttribute("sendRedirectExpositions");
+            Object sendRedirectHalls = request.getSession().getAttribute("sendRedirectHalls");
+            if(sendRedirectExpositions!=null && sendRedirectExpositions.equals(true)) {
+                response.sendRedirect("controller?command=listExpositions");
+            } else if(sendRedirectHalls!=null && sendRedirectHalls.equals(true)){
+                response.sendRedirect("controller?command=listHalls");
+            }
         }
     }
 }
