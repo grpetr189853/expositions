@@ -1,0 +1,89 @@
+package com.grpetr.task.web.command;
+
+import com.grpetr.task.db.DBManager;
+import com.grpetr.task.db.dao.DAOFactory;
+import com.grpetr.task.db.dao.ExpositionDAO;
+import com.grpetr.task.db.dao.ExpositionDao;
+import com.grpetr.task.db.dao.HallDao;
+import com.grpetr.task.exception.AppException;
+import com.grpetr.task.web.constants.Path;
+import org.apache.log4j.Logger;
+import org.omg.CORBA.portable.ApplicationException;
+import sun.applet.AppletIOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class DeleteExpositionCommand extends Command {
+
+    private static final Logger log = Logger.getLogger(DeleteExpositionCommand.class);
+    private static final long serialVersionUID = 7035978923634475984L;
+    public DAOFactory daoFactory = DAOFactory.getInstance();
+
+    @Override
+    public String execute(HttpServletRequest request,
+                          HttpServletResponse response) throws AppException, IOException, ServletException {
+
+        log.debug("Delete Exposition Command starts");
+        request.getSession().removeAttribute("sendRedirectExpositions");
+        request.getSession().removeAttribute("sendRedirectHalls");
+        // delete exposition
+        boolean deleteExposition = false;
+        String forward = Path.PAGE__ERROR_PAGE;
+
+        Integer expositionId = null;
+        Connection con = null;
+        try {
+;           expositionId = Integer.parseInt(request.getParameter("exposition_id"));
+        } catch (NumberFormatException e) {
+            expositionId = null;
+        }
+        if(expositionId != null){
+            deleteExposition = true;
+        }
+        if(deleteExposition == true){
+            try {
+                con = DBManager.getInstance().getConnection();
+                ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
+
+                if(expositionDAO.deleteExposition(con, expositionId)){
+                    forward = Path.PAGE__ADMIN_EXPOSITIONS;
+                    request.getSession().setAttribute("sendRedirectExpositions", true);
+                }
+                con.commit();
+            } catch (Exception e) {
+                log.error("Cannot delete exposition", e);
+                try {
+                    con.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                if(con != null){
+                    try {
+                        con.rollback();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                throw new AppException("Cannot delete exposition");
+            } finally {
+                if(con != null){
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
+        log.debug("Command finished");
+        return forward;
+    }
+
+}
