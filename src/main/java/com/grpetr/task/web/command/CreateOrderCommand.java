@@ -2,9 +2,8 @@ package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
-import com.grpetr.task.db.dao.ExpositionDao;
+import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.dao.OrderDAO;
-import com.grpetr.task.db.dao.OrderDao;
 import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
@@ -35,7 +34,8 @@ public class CreateOrderCommand extends Command{
             con = DBManager.getInstance().getConnection();
             int expositionId = Integer.parseInt(request.getParameter("exposition_id"));
             User user = (User) request.getSession().getAttribute("user");
-            Exposition exposition = new ExpositionDao().getExpositionById(expositionId);
+            ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
+            Exposition exposition = expositionDAO.getExpositionById(con, expositionId);
             request.setAttribute("exposition", exposition);
             int ticketsCount = orderDAO.checkTicketsCout(con, expositionId);
             if(ticketsCount > 0){
@@ -66,7 +66,7 @@ public class CreateOrderCommand extends Command{
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot create order");
+            throw new AppException("Cannot create order",e);
         } finally {
             if(con != null){
                 try {

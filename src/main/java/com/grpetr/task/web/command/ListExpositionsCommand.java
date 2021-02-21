@@ -61,7 +61,7 @@ public class ListExpositionsCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions list");
+            throw new AppException("Cannot obtain expositions list",e);
         } finally {
             if(con != null){
                 try {

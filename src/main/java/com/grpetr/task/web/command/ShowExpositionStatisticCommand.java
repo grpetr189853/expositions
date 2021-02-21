@@ -52,7 +52,7 @@ public class ShowExpositionStatisticCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain statistic list");
+            throw new AppException("Cannot obtain statistic list",e);
         } finally {
             if(con != null){
                 try {

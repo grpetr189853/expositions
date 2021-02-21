@@ -2,9 +2,7 @@ package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
-import com.grpetr.task.db.dao.HallDao;
 import com.grpetr.task.db.dao.UserDAO;
-import com.grpetr.task.db.dao.UserDao;
 import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
@@ -61,7 +59,7 @@ public class ListUsersCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain users list");
+            throw new AppException("Cannot obtain users list",e);
         } finally {
             if(con != null){
                 try {

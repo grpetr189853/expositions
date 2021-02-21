@@ -156,7 +156,7 @@ public class EditExpositionCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot edit exposition");
+            throw new AppException("Cannot edit exposition",e);
         } finally {
             if(con != null){
                 try {

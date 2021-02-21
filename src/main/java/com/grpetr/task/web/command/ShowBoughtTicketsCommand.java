@@ -59,7 +59,7 @@ public class ShowBoughtTicketsCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain tickets list");
+            throw new AppException("Cannot obtain tickets list",e);
         } finally {
             if(con != null){
                 try {

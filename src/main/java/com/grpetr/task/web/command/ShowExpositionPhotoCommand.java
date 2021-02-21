@@ -51,7 +51,7 @@ public class ShowExpositionPhotoCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions photo");
+            throw new AppException("Cannot obtain expositions photo",e);
         } finally {
             if(con != null){
                 try {

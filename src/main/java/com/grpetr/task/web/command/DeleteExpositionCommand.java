@@ -3,8 +3,6 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.ExpositionDAO;
-import com.grpetr.task.db.dao.ExpositionDao;
-import com.grpetr.task.db.dao.HallDao;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
 import org.apache.log4j.Logger;
@@ -69,7 +67,7 @@ public class DeleteExpositionCommand extends Command {
                         e1.printStackTrace();
                     }
                 }
-                throw new AppException("Cannot delete exposition");
+                throw new AppException("Cannot delete exposition",e);
             } finally {
                 if(con != null){
                     try {

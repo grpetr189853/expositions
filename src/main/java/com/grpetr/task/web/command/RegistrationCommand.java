@@ -3,7 +3,6 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.UserDAO;
-import com.grpetr.task.db.dao.UserDao;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
@@ -59,7 +58,7 @@ public class RegistrationCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot register user");
+            throw new AppException("Cannot register user",e);
         } finally {
             if(con != null){
                 try {

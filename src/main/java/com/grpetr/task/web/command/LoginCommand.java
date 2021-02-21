@@ -70,7 +70,7 @@ public class LoginCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot get user");
+            throw new AppException("Cannot get user",e);
         } finally {
             if(con != null){
                 try {

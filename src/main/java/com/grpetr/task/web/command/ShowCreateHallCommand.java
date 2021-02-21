@@ -1,7 +1,6 @@
 package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
-import com.grpetr.task.db.dao.HallDao;
 import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;

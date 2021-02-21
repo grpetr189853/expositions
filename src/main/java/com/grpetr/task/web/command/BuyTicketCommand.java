@@ -3,7 +3,6 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.ExpositionDAO;
-import com.grpetr.task.db.dao.ExpositionDao;
 import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
@@ -50,7 +49,7 @@ public class BuyTicketCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions list");
+            throw new AppException("Cannot obtain expositions list",e);
         } finally {
             if(con != null){
                 try {

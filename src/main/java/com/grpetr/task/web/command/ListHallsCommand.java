@@ -3,7 +3,6 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.HallDAO;
-import com.grpetr.task.db.dao.HallDao;
 import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
@@ -40,7 +39,7 @@ public class ListHallsCommand extends Command {
         try {
             con = DBManager.getInstance().getConnection();
             halls = hallDAO.getAllHalls(con, PER_PAGE, offset);
-            numberOfHalls = new HallDao().getHallsNumber();
+            numberOfHalls = hallDAO.getHallsNumber(con);
             log.trace("Found in DB: halls --> " + halls);
             con.commit();
         } catch (SQLException e){
@@ -57,7 +56,7 @@ public class ListHallsCommand extends Command {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot get Halls");
+            throw new AppException("Cannot get Halls",e);
         } finally {
             if(con != null){
                 try {
