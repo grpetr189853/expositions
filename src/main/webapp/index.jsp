@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,12 +24,12 @@
     </div>
 </div>
 <main class="text-center">
-    <fmt:message bundle="${local}" var="actions" key="index.label.actions" />
-    <fmt:message bundle="${local}" var="exposition_label" key="index.label.expositions_label" />
-    <fmt:message bundle="${local}" var="list_expositions" key="index.label.list_expositions" />
-    <fmt:message bundle="${local}" var="we_are_specialist" key="index.label.we_are_specialist" />
-    <fmt:message bundle="${local}" var="login" key="index.label.login" />
-    <fmt:message bundle="${local}" var="register" key="index.label.register" />
+    <fmt:message bundle="${local}" var="actions" key="index.label.actions"/>
+    <fmt:message bundle="${local}" var="exposition_label" key="index.label.expositions_label"/>
+    <fmt:message bundle="${local}" var="list_expositions" key="index.label.list_expositions"/>
+    <fmt:message bundle="${local}" var="we_are_specialist" key="index.label.we_are_specialist"/>
+    <fmt:message bundle="${local}" var="login" key="index.label.login"/>
+    <fmt:message bundle="${local}" var="register" key="index.label.register"/>
     <div class="section clearfix">
         <div class="title-text">
             <h2>${we_are_specialist}</h2>
@@ -38,12 +38,15 @@
             </p>
             <div class="row main-row">
                 <div class="main-button-wrapper col-3">
-                    <div class="button"><a href="registration.jsp" class="btn btn-primary btn-block">${register}</a></div>
+                    <div class="button"><a href="registration.jsp" class="btn btn-primary btn-block">${register}</a>
+                    </div>
                     <div class="button"><a href="login.jsp" class="btn btn-primary btn-block">${login}</a></div>
                     <form action="controller" method="get" style="display: contents;">
                         <input type="hidden" name="command" value="listExpositions">
                         <%--<button class="btn btn-primary btn-block" >ЕКСПОЗИЦИИ</button>--%>
-                        <div class="button"><button href="" class="btn btn-primary btn-block" type="submit">${list_expositions}</button></div>
+                        <div class="button">
+                            <button href="" class="btn btn-primary btn-block" type="submit">${list_expositions}</button>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -10,23 +10,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class User {
-    private final static Logger LOG = Logger.getLogger( User.class );
+    private final static Logger LOG = Logger.getLogger(User.class);
     private int userId;
     private String login;
     private String email;
     private AccessLevel accessLevel;
     private String name;
 
-    public User(String login){
+    public User(String login) {
         this.login = login;
     }
 
-    public User(String login, String email, AccessLevel accessLevel, String name){
+    public User(String login, String email, AccessLevel accessLevel, String name) {
         this.login = login;
         this.email = email;
         this.accessLevel = accessLevel;
         this.name = name;
     }
+
     /*
     public User(String name, String login, String email, String password) throws LoginException{
         this.login = login;
@@ -46,7 +47,7 @@ public class User {
     }
     */
     private boolean checkEmail(String email) {
-        String regex ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
@@ -55,7 +56,7 @@ public class User {
 
     private String hash(String input) {
         String md5Hashed = null;
-        if(null == input) {
+        if (null == input) {
             return null;
         }
 

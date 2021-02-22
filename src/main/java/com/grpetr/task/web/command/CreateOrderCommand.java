@@ -17,11 +17,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class CreateOrderCommand extends Command{
+public class CreateOrderCommand extends Command {
 
     private static final Logger log = Logger.getLogger(CreateOrderCommand.class);
     private static final long serialVersionUID = -7763509211267917958L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -38,11 +39,11 @@ public class CreateOrderCommand extends Command{
             Exposition exposition = expositionDAO.getExpositionById(con, expositionId);
             request.setAttribute("exposition", exposition);
             int ticketsCount = orderDAO.checkTicketsCout(con, expositionId);
-            if(ticketsCount > 0){
+            if (ticketsCount > 0) {
                 affectedRows = orderDAO.setNewOrder(con, user.getUserId(), expositionId, "1", exposition.getTicketPrice(), exposition.getDateIn(), exposition.getDateOut());
                 ticketsCount--;
 
-                if(affectedRows == 1){
+                if (affectedRows == 1) {
                     forward = Path.PAGE__HOME_USER_JSP;
                 }
                 orderDAO.updateTicketsCount(con, ticketsCount, expositionId);
@@ -52,23 +53,23 @@ public class CreateOrderCommand extends Command{
                 throw new AppException("There are no tickets for this exposition");
             }
             con.commit();
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Cannot create order", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot create order",e);
+            throw new AppException("Cannot create order", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

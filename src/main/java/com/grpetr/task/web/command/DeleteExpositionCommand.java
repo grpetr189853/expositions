@@ -36,19 +36,20 @@ public class DeleteExpositionCommand extends Command {
         Integer expositionId = null;
         Connection con = null;
         try {
-;           expositionId = Integer.parseInt(request.getParameter("exposition_id"));
+            ;
+            expositionId = Integer.parseInt(request.getParameter("exposition_id"));
         } catch (NumberFormatException e) {
             expositionId = null;
         }
-        if(expositionId != null){
+        if (expositionId != null) {
             deleteExposition = true;
         }
-        if(deleteExposition == true){
+        if (deleteExposition == true) {
             try {
                 con = DBManager.getInstance().getConnection();
                 ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
 
-                if(expositionDAO.deleteExposition(con, expositionId)){
+                if (expositionDAO.deleteExposition(con, expositionId)) {
                     forward = Path.PAGE__ADMIN_EXPOSITIONS;
                     request.getSession().setAttribute("sendRedirectExpositions", true);
                 }
@@ -60,16 +61,16 @@ public class DeleteExpositionCommand extends Command {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                if(con != null){
+                if (con != null) {
                     try {
                         con.rollback();
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
                 }
-                throw new AppException("Cannot delete exposition",e);
+                throw new AppException("Cannot delete exposition", e);
             } finally {
-                if(con != null){
+                if (con != null) {
                     try {
                         con.close();
                     } catch (SQLException e) {

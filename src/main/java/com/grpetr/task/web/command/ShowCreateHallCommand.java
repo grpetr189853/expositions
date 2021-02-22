@@ -28,7 +28,6 @@ public class ShowCreateHallCommand extends Command {
         log.trace("Set the request attribute: showCreateHall --> " + true);
 
 
-
         log.debug("Command finished");
         return Path.PAGE__ADMIN_CREATE_HALL;
     }

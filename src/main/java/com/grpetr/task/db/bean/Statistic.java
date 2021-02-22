@@ -2,7 +2,7 @@ package com.grpetr.task.db.bean;
 
 import java.io.Serializable;
 
-public class Statistic implements Serializable{
+public class Statistic implements Serializable {
 
     private static final long serialVersionUID = -7252570001581437082L;
     private String userName;

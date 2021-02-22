@@ -21,6 +21,7 @@ public class ListHallsCommand extends Command {
     private static final int PER_PAGE = 10;
     private static final long serialVersionUID = 7217578686074251001L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -42,23 +43,23 @@ public class ListHallsCommand extends Command {
             numberOfHalls = hallDAO.getHallsNumber(con);
             log.trace("Found in DB: halls --> " + halls);
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get Halls", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot get Halls",e);
+            throw new AppException("Cannot get Halls", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

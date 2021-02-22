@@ -26,6 +26,7 @@ public class FilterExpositionsCommand extends Command {
     private static final long serialVersionUID = -65694454884076729L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
     public final static String FORMATTER_PATTERN = "yyyy-MM-dd";
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -43,7 +44,7 @@ public class FilterExpositionsCommand extends Command {
             String errorMessage = null;
             date_in = request.getParameter("date_in");
             date_out = request.getParameter("date_out");
-            if(date_in.isEmpty() || date_out.isEmpty()){
+            if (date_in.isEmpty() || date_out.isEmpty()) {
                 errorMessage = "Exposition Dates cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -60,14 +61,14 @@ public class FilterExpositionsCommand extends Command {
             expositions = expositionDAO.getFilteredExpositions(con, dateIn, dateOut);
             log.trace("Found in DB: expositions --> " + expositions);
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get expositions list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
@@ -76,7 +77,7 @@ public class FilterExpositionsCommand extends Command {
             }
             throw new AppException("Cannot obtain expositions list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -94,7 +95,7 @@ public class FilterExpositionsCommand extends Command {
         request.setAttribute("date_out", date_out);
         HttpSession session = request.getSession();
         log.debug("Command finished");
-        if(session.getAttribute("userRole") == AccessLevel.ADMIN){
+        if (session.getAttribute("userRole") == AccessLevel.ADMIN) {
             return Path.PAGE__ADMIN_EXPOSITIONS;
         } else if (session.getAttribute("userRole") == AccessLevel.USER) {
             return Path.PAGE__HOME_USER_JSP;

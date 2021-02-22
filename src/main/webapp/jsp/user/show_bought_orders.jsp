@@ -5,7 +5,7 @@
   Time: 13:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,8 +29,9 @@
     <div class="form-wrapper-left">
         <form action="controller" method="get">
             <input type="hidden" name="command" value="listExpositions">
-            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions" />
-            <button class="btn btn-primary btn-block" type="submit"><c:out value="${expositions_label}"></c:out></button>
+            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions"/>
+            <button class="btn btn-primary btn-block" type="submit"><c:out
+                    value="${expositions_label}"></c:out></button>
         </form>
         <form action="controller" method="get">
             <input type="hidden" name="command" value="showBoughtTickets">
@@ -48,11 +49,11 @@
         <table class="sort table" align="center">
             <thead>
             <tr>
-                <fmt:message bundle="${local}" var="exposition_theme" key="show_bought_orders.label.exposition_theme" />
-                <fmt:message bundle="${local}" var="start_date" key="show_bought_orders.label.start_date" />
-                <fmt:message bundle="${local}" var="end_date" key="show_bought_orders.label.end_date" />
-                <fmt:message bundle="${local}" var="additional_info" key="show_bought_orders.label.additional_info" />
-                <fmt:message bundle="${local}" var="cost" key="show_bought_orders.label.cost" />
+                <fmt:message bundle="${local}" var="exposition_theme" key="show_bought_orders.label.exposition_theme"/>
+                <fmt:message bundle="${local}" var="start_date" key="show_bought_orders.label.start_date"/>
+                <fmt:message bundle="${local}" var="end_date" key="show_bought_orders.label.end_date"/>
+                <fmt:message bundle="${local}" var="additional_info" key="show_bought_orders.label.additional_info"/>
+                <fmt:message bundle="${local}" var="cost" key="show_bought_orders.label.cost"/>
                 <td>${exposition_theme}</td>
                 <td>${start_date}</td>
                 <td>${end_date}</td>
@@ -77,21 +78,27 @@
             <fmt:message bundle="${local}" key="admin.pagination_labels.previous" var="pagination_previous"/>
             <fmt:message bundle="${local}" key="admin.pagination_labels.next" var="pagination_next"/>
             <ul class="pagination">
-                <li class="page-item <c:if test="${currentPage == 1}">disabled</c:if>"><a class="page-link" href="controller?command=listExpositions&page=${currentPage - 1}"><c:out value="${pagination_previous}"></c:out></a></li>
+                <li class="page-item <c:if test="${currentPage == 1}">disabled</c:if>"><a class="page-link"
+                                                                                          href="controller?command=listExpositions&page=${currentPage - 1}"><c:out
+                        value="${pagination_previous}"></c:out></a></li>
                 <c:forEach begin="1" end="${noOfPages}" var="i">
                     <c:choose>
                         <c:when test="${currentPage eq i}">
                             <li class="page-item active"><a class="page-link" href="#">${i}</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a  class="page-link" href="controller?command=listExpositions&page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="controller?command=listExpositions&page=${i}">${i}</a></li>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
                 <%--For displaying Next link --%>
                 <%--<c:if test="${currentPage lt noOfPages}">--%>
                 <%--<fmt:message key="page.next" var="next"/>--%>
-                <li class="page-item <c:if test="${currentPage == noOfPages}">disabled</c:if>" ><a class="page-link" href="controller?command=listExpositions&page=${currentPage + 1}" aria-disabled="<c:out value="${currentPage == noOfPages}"></c:out>"><c:out value="${pagination_next}"></c:out></a></li>
+                <li class="page-item <c:if test="${currentPage == noOfPages}">disabled</c:if>"><a class="page-link"
+                                                                                                  href="controller?command=listExpositions&page=${currentPage + 1}"
+                                                                                                  aria-disabled="<c:out value="${currentPage == noOfPages}"></c:out>"><c:out
+                        value="${pagination_next}"></c:out></a></li>
                 <%--</c:if>--%>
             </ul>
         </div>

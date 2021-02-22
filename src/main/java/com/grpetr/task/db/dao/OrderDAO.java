@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface OrderDAO{
+public interface OrderDAO {
 
     int setNewOrder(Connection con, int userId, int expositionId, String additionalInfo,
                     int cost, LocalDate dateIn, LocalDate dateOut) throws SQLException;

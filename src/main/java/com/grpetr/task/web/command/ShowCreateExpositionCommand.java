@@ -33,30 +33,30 @@ public class ShowCreateExpositionCommand extends Command {
         String forward = Path.PAGE__ERROR_PAGE;
         // get halls list
         try {
-            con  = DBManager.getInstance().getConnection();
+            con = DBManager.getInstance().getConnection();
             HallDAO hallDAO = daoFactory.getHallDAO();
             numberOfHalls = hallDAO.getHallsNumber(con);
             halls = hallDAO.getAllHalls(con, numberOfHalls, 0);
             log.trace("Found in DB: halls --> " + halls);
             forward = Path.PAGE__ADMIN_CREATE_EXPOSITION;
             con.commit();
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Cannot get halls list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain halls list",e);
+            throw new AppException("Cannot obtain halls list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

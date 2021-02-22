@@ -19,6 +19,7 @@ public class BuyTicketCommand extends Command {
     private static final Logger log = Logger.getLogger(BuyTicketCommand.class);
     private static final long serialVersionUID = -6697492180545036573L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -28,30 +29,30 @@ public class BuyTicketCommand extends Command {
         Exposition exposition = null;
         String forward = Path.PAGE__ERROR_PAGE;
         Connection con = null;
-        int expositionId =  Integer.parseInt(request.getParameter("exposition_id"));
+        int expositionId = Integer.parseInt(request.getParameter("exposition_id"));
         try {
             con = DBManager.getInstance().getConnection();
             ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
             exposition = expositionDAO.getExpositionById(con, expositionId);
             forward = Path.PAGE__HOME_USER_JSP;
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get expositions list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions list",e);
+            throw new AppException("Cannot obtain expositions list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -66,8 +67,6 @@ public class BuyTicketCommand extends Command {
         log.trace("Set the request attribute: expositionId --> " + expositionId);
         request.setAttribute("exposition", exposition);
         log.trace("Set the request attribute: exposition --> " + exposition);
-
-
 
 
         log.debug("Command finished");

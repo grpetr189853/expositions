@@ -38,23 +38,23 @@ public class ShowExpositionStatisticCommand extends Command {
             log.trace("Found in DB: statistic --> " + statistics);
             forward = Path.PAGE__ADMIN_SHOW_STATISTIC;
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get statistic list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain statistic list",e);
+            throw new AppException("Cannot obtain statistic list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

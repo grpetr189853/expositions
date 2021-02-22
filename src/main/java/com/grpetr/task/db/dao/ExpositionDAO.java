@@ -11,7 +11,7 @@ import java.util.List;
 public interface ExpositionDAO {
 
     int setNewExposition(Connection con, String theme, int ticketPrice, int ticketsCount,
-                                LocalDate dateIn, LocalDate dateOut, int[] halls_ids, String imgName) throws SQLException;
+                         LocalDate dateIn, LocalDate dateOut, int[] halls_ids, String imgName) throws SQLException;
 
     void setNewExpositionHall(Connection con, int newRowId, Integer hall_id);
 
@@ -28,7 +28,7 @@ public interface ExpositionDAO {
 
     List<Hall> getExpositionHallsByExpositionId(Connection con, int expositionId) throws SQLException;
 
-    void deleteAllExpositionHalls(Connection con,int expositionId) throws SQLException;
+    void deleteAllExpositionHalls(Connection con, int expositionId) throws SQLException;
 
     List<Exposition> getFilteredExpositions(Connection con, LocalDate dateIn, LocalDate dateOut) throws SQLException;
 }

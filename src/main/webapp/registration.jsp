@@ -5,7 +5,7 @@
   Time: 0:56
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,17 +27,17 @@
 <body class="registration-page">
 <main>
     <div class="registration-block">
-        <fmt:message bundle="${local}" var="input_data" key="login.label.input_data" />
-        <fmt:message bundle="${local}" var="name_label" key="register.label.name" />
-        <fmt:message bundle="${local}" var="email_label" key="register.label.email" />
-        <fmt:message bundle="${local}" var="login_label" key="register.label.login" />
-        <fmt:message bundle="${local}" var="password_label" key="register.label.password" />
-        <fmt:message bundle="${local}" var="registration_label" key="register.label.registration" />
-        <fmt:message bundle="${local}" var="login_with_your_data" key="register.label.login_with_your_data" />
-        <fmt:message bundle="${local}" var="login_with" key="register.label.login_with" />
-        <fmt:message bundle="${local}" var="or_login" key="login.label.or_login" />
-        <fmt:message bundle="${local}" var="to_main" key="login.label.to_main" />
-        <fmt:message bundle="${local}" var="main" key="login.label.main" />
+        <fmt:message bundle="${local}" var="input_data" key="login.label.input_data"/>
+        <fmt:message bundle="${local}" var="name_label" key="register.label.name"/>
+        <fmt:message bundle="${local}" var="email_label" key="register.label.email"/>
+        <fmt:message bundle="${local}" var="login_label" key="register.label.login"/>
+        <fmt:message bundle="${local}" var="password_label" key="register.label.password"/>
+        <fmt:message bundle="${local}" var="registration_label" key="register.label.registration"/>
+        <fmt:message bundle="${local}" var="login_with_your_data" key="register.label.login_with_your_data"/>
+        <fmt:message bundle="${local}" var="login_with" key="register.label.login_with"/>
+        <fmt:message bundle="${local}" var="or_login" key="login.label.or_login"/>
+        <fmt:message bundle="${local}" var="to_main" key="login.label.to_main"/>
+        <fmt:message bundle="${local}" var="main" key="login.label.main"/>
 
         <h2>${input_data}</h2>
         <form action="controller" method="post">
@@ -76,14 +76,14 @@
                 </div>
             </div>
 
-<!--            <hr class="hr-xs">
+            <!--            <hr class="hr-xs">
 
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-                    <input type="password" class="form-control" placeholder="Повторите суперпароль">
-                </div>
-            </div> -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
+                                <input type="password" class="form-control" placeholder="Повторите суперпароль">
+                            </div>
+                        </div> -->
 
             <button class="btn btn-primary btn-block" type="submit">${registration_label}</button>
             <div class="registration-footer">
@@ -99,10 +99,12 @@
     </div>
 
     <div class="registration-links">
-        <p class="text-center">${login_with_your_data} <a class="txt-brand" href="login.jsp"><font color=#29aafe>${login_with}</font></a></p>
+        <p class="text-center">${login_with_your_data} <a class="txt-brand" href="login.jsp"><font
+                color=#29aafe>${login_with}</font></a></p>
     </div>
     <div class="main-links">
-        <p class="text-center">${to_main} <a class="txt-brand" href="index.jsp"><font color=#29aafe>${main}</font></a></p>
+        <p class="text-center">${to_main} <a class="txt-brand" href="index.jsp"><font color=#29aafe>${main}</font></a>
+        </p>
     </div>
 </main>
 

@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class DBManager {
-    private final static Logger LOG = Logger.getLogger( DBManager.class );
+    private final static Logger LOG = Logger.getLogger(DBManager.class);
     private static DBManager instance;
 
     // //////////////////////////////////////////////////////////
@@ -33,9 +33,9 @@ public class DBManager {
         Connection con = null;
         try {
             Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
 
-            DataSource ds = (DataSource)envContext.lookup("jdbc/expositions");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/expositions");
             con = ds.getConnection();
         } catch (NamingException ex) {
             LOG.error("Cannot obtain a connection from the pool", ex);
@@ -50,11 +50,10 @@ public class DBManager {
     /**
      * Commits and close the given connection.
      *
-     * @param con
-     *            Connection to be committed and closed.
+     * @param con Connection to be committed and closed.
      */
     public void commitAndClose(Connection con) {
-        if(con != null){
+        if (con != null) {
             try {
                 con.commit();
                 con.close();
@@ -67,11 +66,10 @@ public class DBManager {
     /**
      * Rollbacks and close the given connection.
      *
-     * @param con
-     *            Connection to be rollbacked and closed.
+     * @param con Connection to be rollbacked and closed.
      */
     public void rollbackAndClose(Connection con) {
-        if(con != null){
+        if (con != null) {
             try {
                 con.rollback();
                 con.close();

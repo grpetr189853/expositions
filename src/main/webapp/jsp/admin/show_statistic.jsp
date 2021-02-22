@@ -5,7 +5,7 @@
   Time: 17:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -52,10 +52,12 @@
                 <table class="sort table" align="center">
                     <thead>
                     <tr>
-                        <fmt:message bundle="${local}" var="user_name" key="exposition_statistic.label.username" />
-                        <fmt:message bundle="${local}" var="exposition_theme" key="exposition_statistic.label.exposition_theme" />
-                        <fmt:message bundle="${local}" var="additional_info" key="exposition_statistic.label.additional_info" />
-                        <fmt:message bundle="${local}" var="cost" key="exposition_statistic.label.cost" />
+                        <fmt:message bundle="${local}" var="user_name" key="exposition_statistic.label.username"/>
+                        <fmt:message bundle="${local}" var="exposition_theme"
+                                     key="exposition_statistic.label.exposition_theme"/>
+                        <fmt:message bundle="${local}" var="additional_info"
+                                     key="exposition_statistic.label.additional_info"/>
+                        <fmt:message bundle="${local}" var="cost" key="exposition_statistic.label.cost"/>
                         <td>${user_name}</td>
                         <td>${exposition_theme}</td>
                         <td>${additional_info}</td>
@@ -64,10 +66,10 @@
                     </thead>
                     <c:forEach items="${ requestScope.statistics}" var="statistic">
                         <tr>
-                            <td><c:out value="${statistic.userName }" /></td>
-                            <td><c:out value="${statistic.expositionName  }" /></td>
-                            <td><c:out value="${statistic.additionalInfo }" /></td>
-                            <td><c:out value="${statistic.cost }" /></td>
+                            <td><c:out value="${statistic.userName }"/></td>
+                            <td><c:out value="${statistic.expositionName  }"/></td>
+                            <td><c:out value="${statistic.additionalInfo }"/></td>
+                            <td><c:out value="${statistic.cost }"/></td>
                         </tr>
                     </c:forEach>
                 </table>

@@ -47,23 +47,23 @@ public class ListExpositionsCommand extends Command {
             numberOfExpositions = expositionDAO.getExpositionsNumber(con);
             log.trace("Found in DB: expositions --> " + expositions);
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get expositions list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions list",e);
+            throw new AppException("Cannot obtain expositions list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class ListExpositionsCommand extends Command {
 
         HttpSession session = request.getSession();
         log.debug("Command finished");
-        if(session.getAttribute("userRole") == AccessLevel.ADMIN){
+        if (session.getAttribute("userRole") == AccessLevel.ADMIN) {
             return Path.PAGE__ADMIN_EXPOSITIONS;
         } else if (session.getAttribute("userRole") == AccessLevel.USER) {
             return Path.PAGE__HOME_USER_JSP;

@@ -31,36 +31,36 @@ public class RegistrationCommand extends Command {
         String forward = Path.PAGE__ERROR_PAGE;
         String errorMessage;
         Connection con = null;
-        if(login == null||password==null|email==null||name==null){
+        if (login == null || password == null | email == null || name == null) {
             errorMessage = "Login/password/email/name cannot be empty";
             request.setAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
             return forward;
         }
 
-        try{
+        try {
             con = DBManager.getInstance().getConnection();
             UserDAO userDAO = daoFactory.getUserDAO();
             userDAO.register(con, name, login, password, email);
             forward = Path.PAGE__LOGIN;
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot register user", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot register user",e);
+            throw new AppException("Cannot register user", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

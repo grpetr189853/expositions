@@ -45,23 +45,23 @@ public class ShowBoughtTicketsCommand extends Command {
             numberOfTickets = orderDAO.getTicketsNumber(con);
             forward = Path.PAGE__USER_SHOW_BOUGHT_ORDERS;
             con.commit();
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Cannot get tickets list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain tickets list",e);
+            throw new AppException("Cannot obtain tickets list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

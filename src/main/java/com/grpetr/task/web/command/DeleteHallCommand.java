@@ -19,6 +19,7 @@ public class DeleteHallCommand extends Command {
     private static final Logger log = Logger.getLogger(DeleteHallCommand.class);
     private static final long serialVersionUID = 3680084401489477421L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -36,10 +37,10 @@ public class DeleteHallCommand extends Command {
             e.printStackTrace();
             hallId = null;
         }
-        if(hallId != null){
+        if (hallId != null) {
             deleteHall = true;
         }
-        if(deleteHall == true){
+        if (deleteHall == true) {
             try {
                 con = DBManager.getInstance().getConnection();
                 HallDAO hallDAO = daoFactory.getHallDAO();
@@ -48,23 +49,23 @@ public class DeleteHallCommand extends Command {
                     request.getSession().setAttribute("sendRedirectHalls", true);
                 }
                 con.commit();
-            }catch (Exception e) {
+            } catch (Exception e) {
                 log.error("Cannot delete hall", e);
                 try {
                     con.rollback();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                if(con != null){
+                if (con != null) {
                     try {
                         con.rollback();
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
                 }
-                throw new AppException("Cannot delete hall",e);
+                throw new AppException("Cannot delete hall", e);
             } finally {
-                if(con != null){
+                if (con != null) {
                     try {
                         con.close();
                     } catch (SQLException e) {

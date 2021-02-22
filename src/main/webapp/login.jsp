@@ -5,7 +5,7 @@
   Time: 23:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -28,15 +28,15 @@
 <body class="login-page">
 <main>
     <div class="login-block">
-        <fmt:message bundle="${local}" var="input_data" key="login.label.input_data" />
-        <fmt:message bundle="${local}" var="or_login" key="login.label.or_login" />
-        <fmt:message bundle="${local}" var="account" key="login.label.account" />
-        <fmt:message bundle="${local}" var="register" key="login.label.register" />
-        <fmt:message bundle="${local}" var="to_main" key="login.label.to_main" />
-        <fmt:message bundle="${local}" var="main" key="login.label.main" />
-        <fmt:message bundle="${local}" var="login_label" key="login.label.your_login" />
-        <fmt:message bundle="${local}" var="password_label" key="login.label.your_password" />
-        <fmt:message bundle="${local}" var="login" key="login.label.login" />
+        <fmt:message bundle="${local}" var="input_data" key="login.label.input_data"/>
+        <fmt:message bundle="${local}" var="or_login" key="login.label.or_login"/>
+        <fmt:message bundle="${local}" var="account" key="login.label.account"/>
+        <fmt:message bundle="${local}" var="register" key="login.label.register"/>
+        <fmt:message bundle="${local}" var="to_main" key="login.label.to_main"/>
+        <fmt:message bundle="${local}" var="main" key="login.label.main"/>
+        <fmt:message bundle="${local}" var="login_label" key="login.label.your_login"/>
+        <fmt:message bundle="${local}" var="password_label" key="login.label.your_password"/>
+        <fmt:message bundle="${local}" var="login" key="login.label.login"/>
 
         <h2>${input_data}</h2>
         <form action="controller" method="post">
@@ -71,10 +71,12 @@
     </div>
 
     <div class="login-links">
-        <p class="text-center">${account} <a class="txt-brand" href="registration.jsp"><font color=#29aafe>${register}</font></a></p>
+        <p class="text-center">${account} <a class="txt-brand" href="registration.jsp"><font
+                color=#29aafe>${register}</font></a></p>
     </div>
     <div class="main-links">
-        <p class="text-center">${to_main} <a class="txt-brand" href="index.jsp"><font color=#29aafe>${main}</font></a></p>
+        <p class="text-center">${to_main} <a class="txt-brand" href="index.jsp"><font color=#29aafe>${main}</font></a>
+        </p>
     </div>
 </main>
 

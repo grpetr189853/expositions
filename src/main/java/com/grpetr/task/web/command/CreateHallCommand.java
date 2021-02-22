@@ -18,6 +18,7 @@ public class CreateHallCommand extends Command {
     private static final Logger log = Logger.getLogger(CreateHallCommand.class);
     private static final long serialVersionUID = -732098672003814539L;
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -33,7 +34,7 @@ public class CreateHallCommand extends Command {
         try {
             con = DBManager.getInstance().getConnection();
             String hallName = request.getParameter("hall_name");
-            if(hallName.isEmpty()){
+            if (hallName.isEmpty()) {
                 errorMessage = "Hall name cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -42,29 +43,29 @@ public class CreateHallCommand extends Command {
             }
             HallDAO hallDAO = daoFactory.getHallDAO();
             newRowId = hallDAO.setNewHall(con, hallName);
-            if(newRowId != 0){
-                forward  = Path.PAGE__ADMIN_HALLS;
+            if (newRowId != 0) {
+                forward = Path.PAGE__ADMIN_HALLS;
                 request.getSession().setAttribute("sendRedirectHalls", true);
                 log.trace("Set the request attribute: sendRedirectHalls --> " + true);
             }
             con.commit();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Cannot create hall", ex);
             try {
                 con.rollback();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot cannot create hall",ex);
+            throw new AppException("Cannot cannot create hall", ex);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

@@ -5,7 +5,7 @@
   Time: 13:30
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -32,17 +32,18 @@
     <div class="form-wrapper-left">
         <form action="controller" method="get">
             <input type="hidden" name="command" value="listExpositions">
-            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions" />
-            <button class="btn btn-primary btn-block" type="submit"><c:out value="${expositions_label}"></c:out></button>
+            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions"/>
+            <button class="btn btn-primary btn-block" type="submit"><c:out
+                    value="${expositions_label}"></c:out></button>
         </form>
         <form action="controller" method="get">
             <input type="hidden" name="command" value="listHalls">
-            <fmt:message bundle="${local}" var="halls_label" key="admin.button_labels.halls" />
+            <fmt:message bundle="${local}" var="halls_label" key="admin.button_labels.halls"/>
             <button class="btn btn-primary btn-block" type="submit"><c:out value="${halls_label}"></c:out></button>
         </form>
         <form action="controller" method="get">
             <input type="hidden" name="command" value="listUsers">
-            <fmt:message bundle="${local}" var="users_label" key="admin.button_labels.users" />
+            <fmt:message bundle="${local}" var="users_label" key="admin.button_labels.users"/>
             <button class="btn btn-primary btn-block" type="submit"><c:out value="${users_label}"></c:out></button>
         </form>
     </div>
@@ -53,18 +54,18 @@
 </div>
 <main>
     <div class="container admin-block">
-        <fmt:message bundle="${local}" var="exposition_theme" key="exposition_photo.header.exposition_theme" />
-        <fmt:message bundle="${local}" var="ticket_price" key="exposition_photo.header.ticket_price" />
-        <fmt:message bundle="${local}" var="tickets_count" key="exposition_photo.header.tickets_count" />
-        <fmt:message bundle="${local}" var="start_date" key="exposition_photo.header.start_date" />
-        <fmt:message bundle="${local}" var="end_date" key="exposition_photo.header.end_date" />
-        <fmt:message bundle="${local}" var="exposition_halls" key="exposition_photo.header.exposition_halls" />
+        <fmt:message bundle="${local}" var="exposition_theme" key="exposition_photo.header.exposition_theme"/>
+        <fmt:message bundle="${local}" var="ticket_price" key="exposition_photo.header.ticket_price"/>
+        <fmt:message bundle="${local}" var="tickets_count" key="exposition_photo.header.tickets_count"/>
+        <fmt:message bundle="${local}" var="start_date" key="exposition_photo.header.start_date"/>
+        <fmt:message bundle="${local}" var="end_date" key="exposition_photo.header.end_date"/>
+        <fmt:message bundle="${local}" var="exposition_halls" key="exposition_photo.header.exposition_halls"/>
         <div class="left-column">
             <img src="<c:out value="img/"/>${exposition.imgName}" alt="Exposition Photo">
         </div>
         <div class="right-column">
             <div class="exposition-theme">
-                <span>${exposition_theme}:</span><span> <c:out value="${exposition.theme }" /></span>
+                <span>${exposition_theme}:</span><span> <c:out value="${exposition.theme }"/></span>
             </div>
             <div class="ticket-price">
                 <span>${ticket_price}: </span><span><c:out value="${exposition.ticketPrice}"/></span>

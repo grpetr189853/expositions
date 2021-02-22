@@ -29,9 +29,10 @@ public class EditExpositionCommand extends Command {
     public final static String FORMATTER_PATTERN = "yyyy-MM-dd";
     public DAOFactory daoFactory = DAOFactory.getInstance();
     private final String UPLOAD_DIRECTORY = "/src/main/webapp/img/";
+
     @Override
     public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException,IOException, ServletException {
+                          HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Edit exposition Command starts");
         request.getSession().removeAttribute("sendRedirectExpositions");
         request.getSession().removeAttribute("sendRedirectHalls");
@@ -46,7 +47,7 @@ public class EditExpositionCommand extends Command {
             String realPath = request.getServletContext().getRealPath("");
             File folder = new File(realPath);
             File folderParent = new File(folder.getParent()).getParentFile();
-            File imgDir = new File( folderParent + UPLOAD_DIRECTORY);
+            File imgDir = new File(folderParent + UPLOAD_DIRECTORY);
             if (!imgDir.exists()) {
                 imgDir.mkdirs();
             }
@@ -84,7 +85,7 @@ public class EditExpositionCommand extends Command {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMATTER_PATTERN);
             String theme = (String) request.getParameter("theme");
             String errorMessage = null;
-            if(theme.isEmpty()){
+            if (theme.isEmpty()) {
                 errorMessage = "Exposition theme cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -92,7 +93,7 @@ public class EditExpositionCommand extends Command {
                 return forward;
             }
 
-            if(request.getParameter("ticket_price").isEmpty()){
+            if (request.getParameter("ticket_price").isEmpty()) {
                 errorMessage = "Ticket price cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -103,7 +104,7 @@ public class EditExpositionCommand extends Command {
             int ticketsCount = Integer.parseInt(request.getParameter("tickets_count"));
             String date_in = request.getParameter("date_in");
             String date_out = request.getParameter("date_out");
-            if(date_in.isEmpty() || date_out.isEmpty()){
+            if (date_in.isEmpty() || date_out.isEmpty()) {
                 errorMessage = "Exposition Dates cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -113,7 +114,7 @@ public class EditExpositionCommand extends Command {
             LocalDate dateIn = LocalDate.parse(date_in, formatter);
             LocalDate dateOut = LocalDate.parse(date_out, formatter);
             String[] halls = request.getParameterValues("halls");
-            if(halls == null || halls.length == 0){
+            if (halls == null || halls.length == 0) {
                 errorMessage = "Exposition Halls cannot be empty";
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
@@ -130,8 +131,8 @@ public class EditExpositionCommand extends Command {
             HallDAO hallDAO = daoFactory.getHallDAO();
             expositionDAO.editExposition(con, expositionId, theme, ticketPrice, ticketsCount, dateIn, dateOut, fileName);
             expositionDAO.deleteAllExpositionHalls(con, expositionId);
-            for (Integer hall_id: hall_ids) {
-                if(!(hallDAO.checkWhetherHallIsOccupied(con, hall_id,dateIn) && hallDAO.checkWhetherHallIsOccupied(con, hall_id,dateOut))) {
+            for (Integer hall_id : hall_ids) {
+                if (!(hallDAO.checkWhetherHallIsOccupied(con, hall_id, dateIn) && hallDAO.checkWhetherHallIsOccupied(con, hall_id, dateOut))) {
                     expositionDAO.setNewExpositionHall(con, expositionId, hall_id);
                 } else {
                     log.trace("The hall is occupied at this time");
@@ -142,23 +143,23 @@ public class EditExpositionCommand extends Command {
             request.getSession().setAttribute("sendRedirectExpositions", true);
             log.trace("Set the request attribute: sendRedirectExpositions --> " + true);
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot edit exposition", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot edit exposition",e);
+            throw new AppException("Cannot edit exposition", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

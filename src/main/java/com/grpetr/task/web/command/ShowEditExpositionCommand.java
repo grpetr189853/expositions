@@ -23,6 +23,7 @@ public class ShowEditExpositionCommand extends Command {
     private static final long serialVersionUID = -6928837708131452174L;
     private static final Logger log = Logger.getLogger(ShowEditExpositionCommand.class);
     public DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) throws AppException, IOException, ServletException {
@@ -55,11 +56,11 @@ public class ShowEditExpositionCommand extends Command {
             log.trace("Set the request attribute: selectedHalls --> " + selectedHalls);
             log.trace("Found in DB: selectedHalls --> " + selectedHalls);
             int i = 0;
-            for (Hall hall: halls) {
+            for (Hall hall : halls) {
                 selectedHallsChecked.add(i, 0);
-                for(Hall hall1: selectedHalls){
-                    if(hall.getId() == hall1.getId()){
-                       selectedHallsChecked.set(i, 1);
+                for (Hall hall1 : selectedHalls) {
+                    if (hall.getId() == hall1.getId()) {
+                        selectedHallsChecked.set(i, 1);
                     }
 
                 }
@@ -69,23 +70,23 @@ public class ShowEditExpositionCommand extends Command {
             request.setAttribute("showEditExposition", true);
             forward = Path.PAGE__ADMIN_EDIT_EXPOSITION;
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get expositions list", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions list",e);
+            throw new AppException("Cannot obtain expositions list", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

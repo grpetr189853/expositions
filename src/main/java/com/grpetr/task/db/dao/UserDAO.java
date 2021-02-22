@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public interface UserDAO {
-	
-	User login(Connection con, String login, String password) throws SQLException, LoginException;
+
+    User login(Connection con, String login, String password) throws SQLException, LoginException;
 
     boolean register(Connection con, String name, String login, String password, String email) throws SQLException;
 

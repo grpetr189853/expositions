@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @MultipartConfig
-public class Controller extends HttpServlet{
+public class Controller extends HttpServlet {
     private static final long serialVersionUID = 2423353715955164816L;
 
     private static final Logger log = Logger.getLogger(Controller.class);
@@ -51,9 +51,9 @@ public class Controller extends HttpServlet{
         log.trace("Obtained command --> " + command);
         boolean isError = false;
         // execute command and get forward address
-        String forward= Path.PAGE__ERROR_PAGE;
+        String forward = Path.PAGE__ERROR_PAGE;
         try {
-            forward=command.execute(request, response);
+            forward = command.execute(request, response);
         } catch (AppException e) {
             isError = true;
             if (e.getCause() != null) {
@@ -69,8 +69,7 @@ public class Controller extends HttpServlet{
         log.debug("Controller finished, now go to forward address --> " + forward);
 
         // if the forward address is not null go to the address
-//        boolean isResourceCreated = (boolean)request.getSession().getAttribute("isResourceCreated");
-//        int isResourceCreated = Integer.parseInt((String)request.getSession().getAttribute("isResourceCreated"));
+
         boolean sendRedirect = Boolean.valueOf(request.getParameter("sendRedirect"));
         if (isError == true || (forward != null && sendRedirect == false)) {
             RequestDispatcher disp = request.getRequestDispatcher(forward);
@@ -78,9 +77,9 @@ public class Controller extends HttpServlet{
         } else {
             Object sendRedirectExpositions = request.getSession().getAttribute("sendRedirectExpositions");
             Object sendRedirectHalls = request.getSession().getAttribute("sendRedirectHalls");
-            if(sendRedirectExpositions!=null && sendRedirectExpositions.equals(true)) {
+            if (sendRedirectExpositions != null && sendRedirectExpositions.equals(true)) {
                 response.sendRedirect("controller?command=listExpositions");
-            } else if(sendRedirectHalls!=null && sendRedirectHalls.equals(true)){
+            } else if (sendRedirectHalls != null && sendRedirectHalls.equals(true)) {
                 response.sendRedirect("controller?command=listHalls");
             }
         }

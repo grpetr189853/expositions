@@ -3,7 +3,7 @@ package com.grpetr.task.db.bean;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class BoughtTicket implements Serializable{
+public class BoughtTicket implements Serializable {
 
     private static final long serialVersionUID = -6336630430723129004L;
 

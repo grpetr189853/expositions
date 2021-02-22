@@ -30,30 +30,30 @@ public class ShowExpositionPhotoCommand extends Command {
         int expositionId = Integer.parseInt(request.getParameter("exposition_id"));
         String forward = Path.PAGE__ERROR_PAGE;
         Connection con = null;
-        Exposition exposition  = null;
+        Exposition exposition = null;
         try {
             con = DBManager.getInstance().getConnection();
-            ExpositionDAO expositionDAO  = daoFactory.getExpositionDAO();
+            ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
             exposition = expositionDAO.getExpositionById(con, expositionId);
             forward = Path.PAGE__ADMIN_EXPOSITION_PHOTO;
             con.commit();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             log.error("Cannot get exposition photo", e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            if(con != null){
+            if (con != null) {
                 try {
                     con.rollback();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
-            throw new AppException("Cannot obtain expositions photo",e);
+            throw new AppException("Cannot obtain expositions photo", e);
         } finally {
-            if(con != null){
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

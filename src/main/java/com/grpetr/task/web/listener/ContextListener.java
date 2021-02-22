@@ -14,97 +14,96 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class ContextListener implements ServletContextListener {
 
-	private static final Logger log = Logger.getLogger(ContextListener.class);
+    private static final Logger log = Logger.getLogger(ContextListener.class);
 
-	public void contextDestroyed(ServletContextEvent event) {
-		log("Servlet context destruction starts");
-		// do nothing
-		log("Servlet context destruction finished");
-	}
+    public void contextDestroyed(ServletContextEvent event) {
+        log("Servlet context destruction starts");
+        // do nothing
+        log("Servlet context destruction finished");
+    }
 
-	public void contextInitialized(ServletContextEvent event) {
-		log("Servlet context initialization starts");
+    public void contextInitialized(ServletContextEvent event) {
+        log("Servlet context initialization starts");
 
-		/******Factory initialization******/
-		ServletContext context = event.getServletContext();
+        /******Factory initialization******/
+        ServletContext context = event.getServletContext();
 
-		String daoFQN = context.getInitParameter("dao.factory.fqn");
-		System.out.println("daoFQN ==> " + daoFQN);
+        String daoFQN = context.getInitParameter("dao.factory.fqn");
+        System.out.println("daoFQN ==> " + daoFQN);
 
-		DAOFactory.setDaoFQN(daoFQN);
+        DAOFactory.setDaoFQN(daoFQN);
 
-		DAOFactory dao = DAOFactory.getInstance(); // <--
-		System.out.println(dao);
-		/******Factory initialization******/
-		ServletContext servletContext = event.getServletContext();
-		initLog4J(servletContext);
-		initCommandContainer();
-		initI18N(servletContext);
-	
-		log("Servlet context initialization finished");
-	}
+        DAOFactory dao = DAOFactory.getInstance(); // <--
+        System.out.println(dao);
+        /******Factory initialization******/
+        ServletContext servletContext = event.getServletContext();
+        initLog4J(servletContext);
+        initCommandContainer();
+        initI18N(servletContext);
 
-	/**
-	 * Initializes i18n subsystem.
-	 */
-	private void initI18N(ServletContext servletContext) {
-		log.debug("I18N subsystem initialization started");
-		
-		String localesValue = servletContext.getInitParameter("locales");
-		if (localesValue == null || localesValue.isEmpty()) {
-			log.warn("'locales' init parameter is empty, the default encoding will be used");
-		} else {
-			List<String> locales = new ArrayList<String>();
-			StringTokenizer st = new StringTokenizer(localesValue);
-			while (st.hasMoreTokens()) {
-				String localeName = st.nextToken();
-				locales.add(localeName);
-			}							
-			
-			log.debug("Application attribute set: locales --> " + locales);
-			servletContext.setAttribute("locales", locales);
-		}		
-		
-		log.debug("I18N subsystem initialization finished");
-	}
+        log("Servlet context initialization finished");
+    }
 
-	/**
-	 * Initializes log4j framework.
-	 * 
-	 * @param servletContext
-	 */
-	private void initLog4J(ServletContext servletContext) {
-		log("Log4J initialization started");
-		try {
-			PropertyConfigurator.configure(servletContext.getRealPath(
-							"WEB-INF/log4j.properties"));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		
-		log("Log4J initialization finished");
-	}
-	
-	/**
-	 * Initializes CommandContainer.
-	 * 
-	 */
-	private void initCommandContainer() {
-		log.debug("Command container initialization started");
-		
-		// initialize commands container
-		// just load class to JVM
-		try {
-			Class.forName("com.grpetr.task.web.command.CommandContainer");
-		} catch (ClassNotFoundException ex) {
-			throw new RuntimeException(ex);
-		}
-		
-		log.debug("Command container initialization finished");
-	}
-	
-	private void log(String msg) {
-		System.out.println("[ContextListener] " + msg);
-	}
+    /**
+     * Initializes i18n subsystem.
+     */
+    private void initI18N(ServletContext servletContext) {
+        log.debug("I18N subsystem initialization started");
+
+        String localesValue = servletContext.getInitParameter("locales");
+        if (localesValue == null || localesValue.isEmpty()) {
+            log.warn("'locales' init parameter is empty, the default encoding will be used");
+        } else {
+            List<String> locales = new ArrayList<String>();
+            StringTokenizer st = new StringTokenizer(localesValue);
+            while (st.hasMoreTokens()) {
+                String localeName = st.nextToken();
+                locales.add(localeName);
+            }
+
+            log.debug("Application attribute set: locales --> " + locales);
+            servletContext.setAttribute("locales", locales);
+        }
+
+        log.debug("I18N subsystem initialization finished");
+    }
+
+    /**
+     * Initializes log4j framework.
+     *
+     * @param servletContext
+     */
+    private void initLog4J(ServletContext servletContext) {
+        log("Log4J initialization started");
+        try {
+            PropertyConfigurator.configure(servletContext.getRealPath(
+                    "WEB-INF/log4j.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        log("Log4J initialization finished");
+    }
+
+    /**
+     * Initializes CommandContainer.
+     */
+    private void initCommandContainer() {
+        log.debug("Command container initialization started");
+
+        // initialize commands container
+        // just load class to JVM
+        try {
+            Class.forName("com.grpetr.task.web.command.CommandContainer");
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        log.debug("Command container initialization finished");
+    }
+
+    private void log(String msg) {
+        System.out.println("[ContextListener] " + msg);
+    }
 
 }

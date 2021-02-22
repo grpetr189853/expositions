@@ -23,7 +23,6 @@ public class MySQLHallDAO implements HallDAO {
     private static final String GET_HALL_BY_ID = "SELECT id, hall_name from halls WHERE id = ?";
 
     /**
-     *
      * @param con
      * @param hallName
      * @return
@@ -46,7 +45,6 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
-     *
      * @param con
      * @param hallId
      * @return
@@ -75,7 +73,6 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
-     *
      * @param con
      * @param limit
      * @param offset
@@ -93,7 +90,7 @@ public class MySQLHallDAO implements HallDAO {
         return res;
     }
 
-    private List<Hall> resultSetToHallsList(ResultSet resultSet) throws SQLException{
+    private List<Hall> resultSetToHallsList(ResultSet resultSet) throws SQLException {
         List<Hall> res = new ArrayList<>();
         while (resultSet.next()) {
             Hall hall = new Hall();
@@ -105,14 +102,13 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
-     *
      * @param con
      * @param hallId
      * @return
      * @throws Exception
      */
     @Override
-    public boolean deleteHall(Connection con, int hallId) throws Exception{
+    public boolean deleteHall(Connection con, int hallId) throws Exception {
         PreparedStatement pstmt = null;
         pstmt = con.prepareStatement(DELETE_HALL_BY_YALL_ID);
         pstmt.setInt(1, hallId);
@@ -121,7 +117,6 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
-     *
      * @param con
      * @return
      * @throws SQLException
@@ -140,7 +135,6 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
-     *
      * @param con
      * @param hall_id
      * @param checkDate
@@ -156,8 +150,8 @@ public class MySQLHallDAO implements HallDAO {
         pstmt.setInt(1, hall_id);
         pstmt.setDate(2, sqlCheckDate);
         ResultSet resultSet = pstmt.executeQuery();
-        if(resultSet.next()){
-            if(resultSet.getInt(1) == 1)
+        if (resultSet.next()) {
+            if (resultSet.getInt(1) == 1)
                 res = true;
         }
         return res;

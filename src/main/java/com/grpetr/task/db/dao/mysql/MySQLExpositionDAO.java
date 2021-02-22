@@ -28,8 +28,6 @@ public class MySQLExpositionDAO implements ExpositionDAO {
                     "where exposition_halls.exposition_id = exposition.id " +
                     "group by exposition_id) as halls_names " +
                     "FROM exposition " +
-//                    "LEFT JOIN exposition_halls ON exposition.id = exposition_halls.exposition_id " +
-//                    "LEFT JOIN halls ON exposition_halls.halls_id = halls.id " +
                     "ORDER BY date_in LIMIT ? OFFSET ?";
     private static final String GET_EXPOSITION_BY_ID = "SELECT exposition.id, theme, ticket_price, date_in, date_out, tickets_count, " +
             "(select GROUP_CONCAT(h.hall_name) from halls h " +
@@ -44,8 +42,8 @@ public class MySQLExpositionDAO implements ExpositionDAO {
             "INSERT INTO exposition_halls (exposition_id, halls_id) VALUES (?,?)";
     private static final String GET_NUMBER_OF_EXPOSITIONS = "SELECT COUNT(*) as expositions_number FROM exposition";
     private static final String GET_EXPOSITION_HALLS = "select halls.id as hall_Ids, halls.hall_name as hall_name from halls " +
-                                                        "left join exposition_halls on halls.id = exposition_halls.halls_id " +
-                                                        "where exposition_halls.exposition_id = ?";
+            "left join exposition_halls on halls.id = exposition_halls.halls_id " +
+            "where exposition_halls.exposition_id = ?";
     private static final String EDIT_EXPOSITION = "UPDATE exposition SET theme = ?, ticket_price = ?, tickets_count = ?, date_in =?, date_out = ?, img_name = ? WHERE id =?";
     private static final String GET_FILTERED_EXPOSITIONS = "SELECT exposition.id, theme, ticket_price, date_in, date_out, tickets_count, img_name, " +
             "(select GROUP_CONCAT(h.hall_name) from halls h " +
@@ -56,11 +54,13 @@ public class MySQLExpositionDAO implements ExpositionDAO {
             "LEFT JOIN exposition_halls ON exposition.id = exposition_halls.exposition_id " +
             "LEFT JOIN halls ON exposition_halls.halls_id = halls.id " +
             "where date_in between ? and ? and date_out between ? and ? " +
-            "ORDER BY date_in ";;
+            "ORDER BY date_in ";
+    ;
 
 
     /**
      * Sets new Exposition
+     *
      * @param theme
      * @param ticketPrice
      * @param dateIn
@@ -82,8 +82,8 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         pstmt.setDate(2, sqlDateIn);
         pstmt.setDate(3, sqlDateOut);
         pstmt.setInt(4, ticketPrice);
-        pstmt.setInt(5,ticketsCount);
-        pstmt.setString(6,imgName);
+        pstmt.setInt(5, ticketsCount);
+        pstmt.setString(6, imgName);
         int affectedRows = pstmt.executeUpdate();
 
         if (affectedRows == 1) {
@@ -98,6 +98,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     /**
      * Sets new Exposition hall
+     *
      * @param newRowId
      * @param hall_id
      */
@@ -109,7 +110,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
             pstmt.setInt(1, newRowId);
             pstmt.setInt(2, hall_id);
             pstmt.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             DBManager.getInstance().rollbackAndClose(con);
         }
@@ -117,7 +118,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     @Override
     public void editExposition(Connection con, int expositionId, String theme, int ticketPrice, int ticketsCount,
-                               LocalDate dateIn, LocalDate dateOut, String imgName) throws SQLException{
+                               LocalDate dateIn, LocalDate dateOut, String imgName) throws SQLException {
         int res = 0;
         Date sqlDateIn = Date.valueOf(dateIn);
         Date sqlDateOut = Date.valueOf(dateOut);
@@ -126,7 +127,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         pstmt.setString(1, theme);
         pstmt.setInt(2, ticketPrice);
         pstmt.setInt(3, ticketsCount);
-        pstmt.setDate(4,sqlDateIn);
+        pstmt.setDate(4, sqlDateIn);
         pstmt.setDate(5, sqlDateOut);
         pstmt.setInt(7, expositionId);
         pstmt.setString(6, imgName);
@@ -135,12 +136,13 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     /**
      * get all Expositions
+     *
      * @param limit
      * @param offset
      * @return all Expositions
      */
     @Override
-    public List<Exposition> getAllExpositions(Connection con, int limit, int offset) throws SQLException{
+    public List<Exposition> getAllExpositions(Connection con, int limit, int offset) throws SQLException {
         List<Exposition> expositionsList = null;
         PreparedStatement pstmt = null;
         pstmt = con.prepareStatement(GET_ALL_EXPOSITIONS);
@@ -171,6 +173,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     /**
      * gets Exposition by id
+     *
      * @param expositionId
      * @return Exposition entity
      */
@@ -204,10 +207,11 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     /**
      * Deletes Exposition
+     *
      * @param expositionId
      */
-   @Override
-   public boolean deleteExposition(Connection con, int expositionId) throws SQLException {
+    @Override
+    public boolean deleteExposition(Connection con, int expositionId) throws SQLException {
         PreparedStatement pstmt = null;
 
         pstmt = con.prepareStatement(DELETE_EXPOSITION_HALLS_BY_EXPOSITION_ID);
@@ -221,7 +225,6 @@ public class MySQLExpositionDAO implements ExpositionDAO {
     }
 
     /**
-     *
      * @param con
      * @return
      * @throws SQLException
@@ -251,7 +254,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         return hallList;
     }
 
-    private List<Hall> resultSetToHallsList(ResultSet resultSet) throws SQLException{
+    private List<Hall> resultSetToHallsList(ResultSet resultSet) throws SQLException {
         List<Hall> res = new ArrayList<>();
         while (resultSet.next()) {
             Hall hall = new Hall();
@@ -262,7 +265,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         return res;
     }
 
-    public void deleteAllExpositionHalls(Connection con,int expositionId) throws SQLException{
+    public void deleteAllExpositionHalls(Connection con, int expositionId) throws SQLException {
         PreparedStatement pstmt = null;
 
         pstmt = con.prepareStatement(DELETE_EXPOSITION_HALLS_BY_EXPOSITION_ID);

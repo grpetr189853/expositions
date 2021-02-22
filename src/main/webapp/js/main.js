@@ -83,20 +83,20 @@ function sort(e) {
 
     var node, arrow, curcol;
     for (var i = 0; (node = dad.getElementsByTagName("td").item(i)); i++) {
-        if (node.lastChild.nodeValue == name){
+        if (node.lastChild.nodeValue == name) {
             curcol = i;
-            if (node.className == "curcol"){
+            if (node.className == "curcol") {
                 arrow = node.firstChild;
                 table.up = Number(!up);
-            }else{
+            } else {
                 node.className = "curcol";
-                arrow = node.insertBefore(document.createElement("span"),node.firstChild);
+                arrow = node.insertBefore(document.createElement("span"), node.firstChild);
                 arrow.appendChild(document.createTextNode(""));
                 table.up = 0;
             }
-            arrow.innerHTML=((table.up==0)?"&#8595;":"&#8593;")+"&nbsp;";
-        }else{
-            if (node.className == "curcol"){
+            arrow.innerHTML = ((table.up == 0) ? "&#8595;" : "&#8593;") + "&nbsp;";
+        } else {
+            if (node.className == "curcol") {
                 node.className = "";
                 if (node.firstChild) node.removeChild(node.firstChild);
             }
@@ -124,7 +124,7 @@ function sort(e) {
 function init(e) {
     if (!document.getElementsByTagName) return;
 
-    if (document.createEvent) function click_elem(elem){
+    if (document.createEvent) function click_elem(elem) {
         var evt = document.createEvent("MouseEvents");
         evt.initMouseEvent("click", false, false, window, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, elem);
         elem.dispatchEvent(evt);
@@ -139,11 +139,11 @@ function init(e) {
         }
         thead.parentNode.up = 0;
 
-        if (typeof(initial_sort_id) != "undefined"){
+        if (typeof(initial_sort_id) != "undefined") {
             td_for_event = thead.getElementsByTagName("td").item(initial_sort_id);
             if (td_for_event.dispatchEvent) click_elem(td_for_event);
             else if (td_for_event.fireEvent) td_for_event.fireEvent("onclick");
-            if (typeof(initial_sort_up) != "undefined" && initial_sort_up){
+            if (typeof(initial_sort_up) != "undefined" && initial_sort_up) {
                 if (td_for_event.dispatchEvent) click_elem(td_for_event);
                 else if (td_for_event.fireEvent) td_for_event.fireEvent("onclick");
             }
@@ -152,7 +152,7 @@ function init(e) {
 }
 
 var root = window.addEventListener || window.attachEvent ? window : document.addEventListener ? document : null;
-if (root){
+if (root) {
     if (root.addEventListener) root.addEventListener("load", init, false);
     else if (root.attachEvent) root.attachEvent("onload", init);
 }

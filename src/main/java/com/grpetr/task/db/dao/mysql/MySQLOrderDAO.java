@@ -34,7 +34,6 @@ public class MySQLOrderDAO implements OrderDAO {
     private static final String GET_NUMBER_OF_TICKETS = "SELECT COUNT(*) as tickets_number FROM orders";
 
     /**
-     *
      * @param con
      * @param userId
      * @param expositionId
@@ -46,14 +45,14 @@ public class MySQLOrderDAO implements OrderDAO {
      */
     @Override
     public int setNewOrder(Connection con, int userId, int expositionId, String additionalInfo,
-                           int cost, LocalDate dateIn, LocalDate dateOut) throws SQLException{
+                           int cost, LocalDate dateIn, LocalDate dateOut) throws SQLException {
         int res = 0;
         PreparedStatement pstmt = null;
         Date sqlDateIn = Date.valueOf(dateIn);
         Date sqlDateOut = Date.valueOf(dateOut);
         pstmt = con.prepareStatement(SET_NEW_ORDER);
         pstmt.setInt(1, userId);
-        pstmt.setDate(2,sqlDateIn);
+        pstmt.setDate(2, sqlDateIn);
         pstmt.setDate(3, sqlDateOut);
         pstmt.setInt(4, expositionId);
         pstmt.setString(5, additionalInfo);
@@ -64,7 +63,6 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
-     *
      * @param con
      * @param userId
      * @param expositionId
@@ -86,7 +84,7 @@ public class MySQLOrderDAO implements OrderDAO {
         try {
             pstmt = con.prepareStatement(EDIT_ORDER);
             pstmt.setInt(1, userId);
-            pstmt.setDate(2,sqlDateIn);
+            pstmt.setDate(2, sqlDateIn);
             pstmt.setDate(3, sqlDateOut);
             pstmt.setInt(4, expositionId);
             pstmt.setString(5, additionalInfo);
@@ -96,10 +94,10 @@ public class MySQLOrderDAO implements OrderDAO {
             e.printStackTrace();
             DBManager.getInstance().rollbackAndClose(con);
         } finally {
-            if(pstmt != null){
+            if (pstmt != null) {
                 try {
                     pstmt.close();
-                } catch (SQLException ex){
+                } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -109,7 +107,6 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
-     *
      * @param con
      * @param userId
      * @param offset
@@ -117,7 +114,7 @@ public class MySQLOrderDAO implements OrderDAO {
      * @return
      */
     @Override
-    public List<BoughtTicket> getUsersTickets(Connection con, int userId, int limit, int offset) throws SQLException{
+    public List<BoughtTicket> getUsersTickets(Connection con, int userId, int limit, int offset) throws SQLException {
         List<BoughtTicket> res = null;
         PreparedStatement pstmt = null;
         pstmt = con.prepareStatement(GET_USERS_ORDERS);
@@ -153,13 +150,12 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
-     *
      * @param con
      * @param expositionId
      * @return
      */
     @Override
-    public List<Statistic> showBoughtOrders(Connection con, int expositionId) throws SQLException{
+    public List<Statistic> showBoughtOrders(Connection con, int expositionId) throws SQLException {
         List<Statistic> res = null;
         PreparedStatement pstmt = null;
         pstmt = con.prepareStatement(GET_BOUGHT_ORDERS);
@@ -169,7 +165,7 @@ public class MySQLOrderDAO implements OrderDAO {
         return res;
     }
 
-    private List<Statistic> resultSetToStatisticList(ResultSet resultSet) throws SQLException{
+    private List<Statistic> resultSetToStatisticList(ResultSet resultSet) throws SQLException {
         List<Statistic> res = new ArrayList<>();
         while (resultSet.next()) {
             Statistic statistic = new Statistic();
@@ -189,26 +185,24 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
-     *
      * @param con
      * @param expositionId
      * @return
      */
     @Override
-    public int checkTicketsCout(Connection con, int expositionId) throws SQLException{
+    public int checkTicketsCout(Connection con, int expositionId) throws SQLException {
         int res = 0;
         PreparedStatement pstmt = null;
         pstmt = con.prepareStatement(GET_TICKETS_COUNT);
         pstmt.setInt(1, expositionId);
         ResultSet resultSet = pstmt.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             res = resultSet.getInt("tickets_count");
         }
         return res;
     }
 
     /**
-     *
      * @param con
      * @param newTicketsCount
      * @param expositionId
