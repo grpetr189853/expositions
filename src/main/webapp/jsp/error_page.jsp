@@ -1,8 +1,9 @@
 <%@ page isErrorPage="true" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ include file="/jsp/jspf/directive/page.jspf" %>
-<%@ include file="/jsp/jspf/directive/taglib.jspf" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 
 <c:set var="title" value="Error" scope="page"/>
@@ -13,7 +14,7 @@
 <table id="main-container">
 
     <%-- HEADER --%>
-    <%@ include file="/jsp/jspf/header.jspf" %>
+    <%--<%@ include file="/jsp/jspf/header.jspf" %>--%>
     <%-- HEADER --%>
 
     <tr>
