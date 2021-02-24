@@ -3,16 +3,16 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.UserDAO;
-import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,8 +25,8 @@ public class ListUsersCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
 
         log.debug("List Users Command starts");
         int page = 1;
@@ -81,6 +81,6 @@ public class ListUsersCommand extends Command {
         log.trace("Set the request attribute: showUsers --> " + true);
 
         log.debug("Command finished");
-        return Path.PAGE__ADMIN_USERS;
+        return new ForwardResult(Path.PAGE__ADMIN_USERS);
     }
 }

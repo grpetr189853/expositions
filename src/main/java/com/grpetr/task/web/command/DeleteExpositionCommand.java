@@ -5,9 +5,9 @@ import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.RedirectResult;
 import org.apache.log4j.Logger;
-import org.omg.CORBA.portable.ApplicationException;
-import sun.applet.AppletIOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +23,8 @@ public class DeleteExpositionCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
 
         log.debug("Delete Exposition Command starts");
         request.getSession().removeAttribute("sendRedirectExpositions");
@@ -50,7 +50,7 @@ public class DeleteExpositionCommand extends Command {
                 ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
 
                 if (expositionDAO.deleteExposition(con, expositionId)) {
-                    forward = Path.PAGE__ADMIN_EXPOSITIONS;
+                    forward = Path.COMMAND__LIST_EXPOSITIONS;
                     request.getSession().setAttribute("sendRedirectExpositions", true);
                 }
                 con.commit();
@@ -82,7 +82,7 @@ public class DeleteExpositionCommand extends Command {
 
 
         log.debug("Command finished");
-        return forward;
+        return new RedirectResult(forward);
     }
 
 }

@@ -7,6 +7,8 @@ import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -28,8 +30,8 @@ public class FilterExpositionsCommand extends Command {
     public final static String FORMATTER_PATTERN = "yyyy-MM-dd";
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Filter Expositions Command starts");
 
         List<Exposition> expositions = null;
@@ -49,7 +51,7 @@ public class FilterExpositionsCommand extends Command {
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
                 forward = Path.PAGE__ERROR_PAGE;
-                return forward;
+                return new ForwardResult(forward);
             }
 
 
@@ -96,11 +98,11 @@ public class FilterExpositionsCommand extends Command {
         HttpSession session = request.getSession();
         log.debug("Command finished");
         if (session.getAttribute("userRole") == AccessLevel.ADMIN) {
-            return Path.PAGE__ADMIN_EXPOSITIONS;
+            return new ForwardResult(Path.PAGE__ADMIN_EXPOSITIONS);
         } else if (session.getAttribute("userRole") == AccessLevel.USER) {
-            return Path.PAGE__HOME_USER_JSP;
+            return new ForwardResult(Path.PAGE__HOME_USER_JSP);
         }
-        return Path.PAGE__NON_AUTORIZED_USER_EXPOSITIONS;
+        return new ForwardResult(Path.PAGE__NON_AUTORIZED_USER_EXPOSITIONS);
 
     }
 }

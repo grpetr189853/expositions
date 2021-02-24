@@ -4,6 +4,10 @@ import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.command.Command;
 import com.grpetr.task.web.command.CommandContainer;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
+import com.grpetr.task.web.view.ResultView;
+import com.grpetr.task.web.view.View;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -19,7 +23,7 @@ import java.util.List;
 @MultipartConfig
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 2423353715955164816L;
-
+    ResultView views = new ResultView();
     private static final Logger log = Logger.getLogger(Controller.class);
 
     protected void doGet(HttpServletRequest request,
@@ -51,9 +55,10 @@ public class Controller extends HttpServlet {
         log.trace("Obtained command --> " + command);
         boolean isError = false;
         // execute command and get forward address
-        String forward = Path.PAGE__ERROR_PAGE;
+//        String forward = Path.PAGE__ERROR_PAGE;
+        CommandResult result = new ForwardResult(Path.PAGE__ERROR_PAGE);
         try {
-            forward = command.execute(request, response);
+            result = command.execute(request, response);
         } catch (AppException e) {
             isError = true;
             if (e.getCause() != null) {
@@ -64,12 +69,12 @@ public class Controller extends HttpServlet {
             }
         }
 
-        log.trace("Forward address --> " + forward);
+        log.trace("Forward address --> " + result);
 
-        log.debug("Controller finished, now go to forward address --> " + forward);
+        log.debug("Controller finished, now go to forward address --> " + result);
 
         // if the forward address is not null go to the address
-
+        /*
         boolean sendRedirect = Boolean.valueOf(request.getParameter("sendRedirect"));
         if (isError == true || (forward != null && sendRedirect == false)) {
             RequestDispatcher disp = request.getRequestDispatcher(forward);
@@ -83,5 +88,8 @@ public class Controller extends HttpServlet {
                 response.sendRedirect("controller?command=listHalls");
             }
         }
+        */
+
+        views.render(result, request, response);
     }
 }

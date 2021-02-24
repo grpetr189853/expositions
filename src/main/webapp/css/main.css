@@ -479,7 +479,7 @@ input[name="file"], input[name="theme"], input[name="ticket_price"], input[name=
     width: 70%;
 
 }
-label[for=file], label[for=theme], label[for=ticket_price], label[for=tickets_count], label[for=date_in], label[for=date_out], label[for=halls], label[for=hall_name]{
+label[for=file], label[for="additional_info"], label[for=theme], label[for=ticket_price], label[for=tickets_count], label[for=date_in], label[for=date_out], label[for=halls], label[for=hall_name]{
     text-align: initial;
     width: 30%;
     text-transform: uppercase;

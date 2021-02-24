@@ -6,6 +6,8 @@ import com.grpetr.task.db.dao.OrderDAO;
 import com.grpetr.task.db.bean.Statistic;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,8 +24,8 @@ public class ShowExpositionStatisticCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Show Exposition Statistic Command starts");
         // put menu items list to the request
 
@@ -71,7 +73,7 @@ public class ShowExpositionStatisticCommand extends Command {
 
 
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
 
     }
 }

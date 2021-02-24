@@ -6,6 +6,8 @@ import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,8 +23,8 @@ public class BuyTicketCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
 
         log.debug("Bye ticket Command starts");
         // put menu items list to the request
@@ -70,6 +72,6 @@ public class BuyTicketCommand extends Command {
 
 
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
     }
 }

@@ -3,12 +3,12 @@ package com.grpetr.task.web.command;
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.UserDAO;
-import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +22,8 @@ public class RegistrationCommand extends Command {
     private static final Logger log = Logger.getLogger(RegistrationCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -35,7 +35,7 @@ public class RegistrationCommand extends Command {
             errorMessage = "Login/password/email/name cannot be empty";
             request.setAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
-            return forward;
+            return new ForwardResult(forward);
         }
 
         try {
@@ -69,6 +69,6 @@ public class RegistrationCommand extends Command {
             }
         }
 
-        return forward;
+        return new ForwardResult(forward);
     }
 }

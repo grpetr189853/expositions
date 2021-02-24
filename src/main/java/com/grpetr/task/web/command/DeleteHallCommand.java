@@ -5,6 +5,8 @@ import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.HallDAO;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.RedirectResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,8 +23,8 @@ public class DeleteHallCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Delete hall Command starts");
         request.getSession().removeAttribute("sendRedirectExpositions");
         request.getSession().removeAttribute("sendRedirectHalls");
@@ -45,7 +47,7 @@ public class DeleteHallCommand extends Command {
                 con = DBManager.getInstance().getConnection();
                 HallDAO hallDAO = daoFactory.getHallDAO();
                 if (hallDAO.deleteHall(con, hallId)) {
-                    forward = Path.PAGE__ADMIN_HALLS;
+                    forward = Path.COMMAND__LIST_HALLS;
                     request.getSession().setAttribute("sendRedirectHalls", true);
                 }
                 con.commit();
@@ -78,6 +80,6 @@ public class DeleteHallCommand extends Command {
 
 
         log.debug("Command finished");
-        return forward;
+        return new RedirectResult(forward);
     }
 }

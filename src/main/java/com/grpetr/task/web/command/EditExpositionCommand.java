@@ -6,6 +6,9 @@ import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.dao.HallDAO;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
+import com.grpetr.task.web.result.RedirectResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -31,8 +34,8 @@ public class EditExpositionCommand extends Command {
     private final String UPLOAD_DIRECTORY = "/src/main/webapp/img/";
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Edit exposition Command starts");
         request.getSession().removeAttribute("sendRedirectExpositions");
         request.getSession().removeAttribute("sendRedirectHalls");
@@ -90,7 +93,7 @@ public class EditExpositionCommand extends Command {
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
                 forward = Path.PAGE__ERROR_PAGE;
-                return forward;
+                return new ForwardResult(forward);
             }
 
             if (request.getParameter("ticket_price").isEmpty()) {
@@ -98,7 +101,7 @@ public class EditExpositionCommand extends Command {
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
                 forward = Path.PAGE__ERROR_PAGE;
-                return forward;
+                return new ForwardResult(forward);
             }
             int ticketPrice = Integer.parseInt(request.getParameter("ticket_price"));
             int ticketsCount = Integer.parseInt(request.getParameter("tickets_count"));
@@ -109,7 +112,7 @@ public class EditExpositionCommand extends Command {
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
                 forward = Path.PAGE__ERROR_PAGE;
-                return forward;
+                return new ForwardResult(forward);
             }
             LocalDate dateIn = LocalDate.parse(date_in, formatter);
             LocalDate dateOut = LocalDate.parse(date_out, formatter);
@@ -119,7 +122,7 @@ public class EditExpositionCommand extends Command {
                 request.setAttribute("errorMessage", errorMessage);
                 log.error("errorMessage --> " + errorMessage);
                 forward = Path.PAGE__ERROR_PAGE;
-                return forward;
+                return new ForwardResult(forward);
             }
             int[] hall_ids = new int[halls.length];
             System.out.println(Arrays.toString(halls));
@@ -139,7 +142,7 @@ public class EditExpositionCommand extends Command {
                     throw new AppException("The hall is occupied at this time");
                 }
             }
-            forward = Path.PAGE__ADMIN_EXPOSITIONS;
+            forward = Path.COMMAND__LIST_EXPOSITIONS;
             request.getSession().setAttribute("sendRedirectExpositions", true);
             log.trace("Set the request attribute: sendRedirectExpositions --> " + true);
             con.commit();
@@ -167,6 +170,6 @@ public class EditExpositionCommand extends Command {
                 }
             }
         }
-        return forward;
+        return new RedirectResult(forward);
     }
 }

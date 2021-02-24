@@ -8,6 +8,8 @@ import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.RedirectResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -24,8 +26,8 @@ public class CreateOrderCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Create Order Command starts");
         String forward = Path.PAGE__ERROR_PAGE;
         OrderDAO orderDAO = daoFactory.getOrderDAO();
@@ -35,16 +37,17 @@ public class CreateOrderCommand extends Command {
             con = DBManager.getInstance().getConnection();
             int expositionId = Integer.parseInt(request.getParameter("exposition_id"));
             User user = (User) request.getSession().getAttribute("user");
+            String additional_info = request.getParameter("additional_info");
             ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
             Exposition exposition = expositionDAO.getExpositionById(con, expositionId);
             request.setAttribute("exposition", exposition);
             int ticketsCount = orderDAO.checkTicketsCout(con, expositionId);
             if (ticketsCount > 0) {
-                affectedRows = orderDAO.setNewOrder(con, user.getUserId(), expositionId, "1", exposition.getTicketPrice(), exposition.getDateIn(), exposition.getDateOut());
+                affectedRows = orderDAO.setNewOrder(con, user.getUserId(), expositionId, additional_info, exposition.getTicketPrice(), exposition.getDateIn(), exposition.getDateOut());
                 ticketsCount--;
 
                 if (affectedRows == 1) {
-                    forward = Path.PAGE__HOME_USER_JSP;
+                    forward = Path.COMMAND__LIST_EXPOSITIONS;
                 }
                 orderDAO.updateTicketsCount(con, ticketsCount, expositionId);
                 log.trace("Succesfully updated tickets count");
@@ -79,6 +82,6 @@ public class CreateOrderCommand extends Command {
         }
 
         log.debug("Command finished");
-        return forward;
+        return new RedirectResult(forward);
     }
 }

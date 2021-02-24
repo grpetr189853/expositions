@@ -7,6 +7,8 @@ import com.grpetr.task.db.dao.UserDAO;
 import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
@@ -25,8 +27,8 @@ public class LoginCommand extends Command {
     private static final Logger log = Logger.getLogger(LoginCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
 
         log.debug("Login Command starts");
 
@@ -46,7 +48,7 @@ public class LoginCommand extends Command {
             errorMessage = "Login/password cannot be empty";
             request.setAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
-            return forward;
+            return new ForwardResult(forward);
         }
 
         User user = null;
@@ -86,7 +88,7 @@ public class LoginCommand extends Command {
             errorMessage = "Cannot find user with such login/password";
             request.setAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
-            return forward;
+            return new ForwardResult(forward);
         } else {
             AccessLevel userRole = AccessLevel.getAccessLevel(user);
             log.trace("userRole --> " + userRole);
@@ -109,7 +111,7 @@ public class LoginCommand extends Command {
         }
 
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
     }
 
 }

@@ -8,6 +8,8 @@ import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -25,8 +27,8 @@ public class ShowEditExpositionCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Edit Exposition Command starts");
         Exposition exposition = null;
         Connection con = null;
@@ -94,6 +96,6 @@ public class ShowEditExpositionCommand extends Command {
                 }
             }
         }
-        return forward;
+        return new ForwardResult(forward);
     }
 }

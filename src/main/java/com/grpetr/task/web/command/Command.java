@@ -1,6 +1,7 @@
 package com.grpetr.task.web.command;
 
 import com.grpetr.task.exception.AppException;
+import com.grpetr.task.web.result.CommandResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public abstract class Command implements Serializable {
      *
      * @return Address to go once the command is executed.
      */
-    public abstract String execute(HttpServletRequest request, HttpServletResponse response)
+    public abstract CommandResult execute(HttpServletRequest request, HttpServletResponse response)
             throws AppException, IOException, ServletException;
 
     @Override

@@ -5,8 +5,9 @@ import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.HallDAO;
 import com.grpetr.task.db.entity.Hall;
 import com.grpetr.task.exception.AppException;
-import com.grpetr.task.exception.DBException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -23,8 +24,8 @@ public class ShowCreateExpositionCommand extends Command {
     public DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
 
         log.debug("Show Create Exposition Command starts");
         Connection con = null;
@@ -74,7 +75,7 @@ public class ShowCreateExpositionCommand extends Command {
 
 
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
     }
 
 }

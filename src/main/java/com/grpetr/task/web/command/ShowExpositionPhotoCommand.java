@@ -6,6 +6,8 @@ import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.entity.Exposition;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,8 +24,8 @@ public class ShowExpositionPhotoCommand extends Command {
 
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Show Exposition Photo Command starts");
         // put menu items list to the request
 
@@ -65,6 +67,6 @@ public class ShowExpositionPhotoCommand extends Command {
         log.trace("Set the request attribute: exposition --> " + exposition);
 
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
     }
 }

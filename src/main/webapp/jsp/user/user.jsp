@@ -152,6 +152,8 @@
                     <input type="hidden" name="exposition_id" value="${exposition.id}">
                     <fmt:message bundle="${local}" key="user.buttons.buy_ticket" var="buy_ticket"/>
                     <input type="hidden" name="command" value="createOrder">
+                    <label for="additional_info">Дополнительная информация</label>
+                    <textarea name="additional_info" id="additional_info" cols="30" rows="1"></textarea>
                     <input class="btn btn-primary btn-block" type="submit" value="${buy_ticket}">
                 </form>
             </c:when>

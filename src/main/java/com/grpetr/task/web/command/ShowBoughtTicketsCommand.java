@@ -6,6 +6,8 @@ import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.OrderDAO;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -24,8 +26,8 @@ public class ShowBoughtTicketsCommand extends Command {
     private static final int PER_PAGE = 10;
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws AppException, IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws AppException, IOException, ServletException {
         log.debug("Show bought tickets Command starts");
         int page = 1;
         if (null != request.getParameter("page")) {
@@ -75,6 +77,6 @@ public class ShowBoughtTicketsCommand extends Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
         log.debug("Command finished");
-        return forward;
+        return new ForwardResult(forward);
     }
 }

@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.grpetr.task.web.command.Command;
 import com.grpetr.task.web.constants.Path;
+import com.grpetr.task.web.result.CommandResult;
+import com.grpetr.task.web.result.ForwardResult;
 import org.apache.log4j.Logger;
 
 public class LogoutCommand extends Command {
@@ -18,8 +19,8 @@ public class LogoutCommand extends Command {
     private static final Logger log = Logger.getLogger(LogoutCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request,
-                          HttpServletResponse response) throws IOException, ServletException {
+    public CommandResult execute(HttpServletRequest request,
+                                 HttpServletResponse response) throws IOException, ServletException {
         log.debug("Logout Command starts");
 
         HttpSession session = request.getSession(false);
@@ -28,7 +29,7 @@ public class LogoutCommand extends Command {
         }
 
         log.debug("Command finished");
-        return Path.PAGE__LOGIN;
+        return new ForwardResult(Path.PAGE__LOGIN);
     }
 
 }
