@@ -1,6 +1,7 @@
 package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
+import com.grpetr.task.db.constant.AccessLevel;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.entity.Exposition;
@@ -13,6 +14,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,8 +39,15 @@ public class ShowExpositionPhotoCommand extends Command {
             con = DBManager.getInstance().getConnection();
             ExpositionDAO expositionDAO = daoFactory.getExpositionDAO();
             exposition = expositionDAO.getExpositionById(con, expositionId);
-            forward = Path.PAGE__ADMIN_EXPOSITION_PHOTO;
+            HttpSession session = request.getSession();
+
             con.commit();
+            forward = Path.PAGE__NON_AUTHORIZED_USER_EXPOSITION_PHOTO;
+            if (session.getAttribute("userRole") == AccessLevel.ADMIN) {
+                forward = Path.PAGE__ADMIN_EXPOSITION_PHOTO;
+            }
+
+
         } catch (SQLException e) {
             log.error("Cannot get exposition photo", e);
             try {

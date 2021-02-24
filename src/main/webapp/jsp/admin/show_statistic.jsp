@@ -28,21 +28,25 @@
 <div class="head-content">
     <div class="form-wrapper-left">
         <form action="controller" method="get">
+            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions"/>
             <input type="hidden" name="command" value="listExpositions">
-            <button class="btn btn-primary btn-block" type="submit">ЕКСПОЗИЦИИ</button>
+            <button class="btn btn-primary btn-block" type="submit"><c:out
+                    value="${expositions_label}"></c:out></button>
         </form>
         <form action="controller" method="get">
+            <fmt:message bundle="${local}" var="halls_label" key="admin.button_labels.halls"/>
             <input type="hidden" name="command" value="listHalls">
-            <button class="btn btn-primary btn-block" type="submit">ЗАЛЫ</button>
+            <button class="btn btn-primary btn-block" type="submit"><c:out value="${halls_label}"></c:out></button>
         </form>
         <form action="controller" method="get">
+            <fmt:message bundle="${local}" var="users_label" key="admin.button_labels.users"/>
             <input type="hidden" name="command" value="listUsers">
-            <button class="btn btn-primary btn-block" type="submit">ПОЛЬЗОВАТЕЛИ</button>
+            <button class="btn btn-primary btn-block" type="submit"><c:out value="${users_label}"></c:out></button>
         </form>
     </div>
     <div class="form-wrapper-right">
         <tags:logout userLogin="${user.login}" userName="${user.name}" curr_lang="${locale}"/>
-        <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
+        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
     </div>
 </div>
 <main>

@@ -20,7 +20,7 @@
 <body class="index-page">
 <div class="head-content">
     <div class="form-wrapper-right">
-        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
+        <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
     </div>
 </div>
 <main class="text-center">

@@ -42,7 +42,7 @@
     </div>
     <div class="form-wrapper-right">
         <tags:logout userLogin="${user.login}" userName="${user.name}" curr_lang="${locale}"/>
-        <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
+        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
     </div>
 </div>
 <main>
@@ -124,6 +124,11 @@
                 <table class="sort table" align="center">
                     <thead>
                     <tr>
+                        <fmt:message bundle="${local}" var="exposition_theme" key="user.header.exposition_theme"/>
+                        <fmt:message bundle="${local}" var="ticket_price" key="user.header.ticket_price"/>
+                        <fmt:message bundle="${local}" var="start_date" key="user.header.start_date"/>
+                        <fmt:message bundle="${local}" var="end_date" key="user.header.end_date"/>
+                        <fmt:message bundle="${local}" var="halls" key="user.header.halls"/>
                         <td>ID</td>
                         <td>${exposition_theme}</td>
                         <td>${ticket_price}</td>
@@ -148,13 +153,14 @@
                 </div>
 
 
-                <form action="controller" method="post">
+                <form action="controller" method="post" style="margin-top:20px;">
                     <input type="hidden" name="exposition_id" value="${exposition.id}">
                     <fmt:message bundle="${local}" key="user.buttons.buy_ticket" var="buy_ticket"/>
+                    <fmt:message bundle="${local}" key="user.label.additional_info" var="additional_info"/>
                     <input type="hidden" name="command" value="createOrder">
-                    <label for="additional_info">Дополнительная информация</label>
+                    <label for="additional_info">${additional_info}</label>
                     <textarea name="additional_info" id="additional_info" cols="30" rows="1"></textarea>
-                    <input class="btn btn-primary btn-block" type="submit" value="${buy_ticket}">
+                    <input class="btn btn-primary btn-block" type="submit" value="${buy_ticket}" style="display:block; margin: 20px auto;">
                 </form>
             </c:when>
         </c:choose>

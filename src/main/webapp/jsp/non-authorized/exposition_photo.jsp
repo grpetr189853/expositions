@@ -28,30 +28,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 </head>
 <body class="admin-page exposition-photo">
-<div class="head-content">
-    <div class="form-wrapper-left">
-        <form action="controller" method="get">
-            <input type="hidden" name="command" value="listExpositions">
-            <fmt:message bundle="${local}" var="expositions_label" key="admin.button_labels.expositions"/>
-            <button class="btn btn-primary btn-block" type="submit"><c:out
-                    value="${expositions_label}"></c:out></button>
-        </form>
-        <form action="controller" method="get">
-            <input type="hidden" name="command" value="listHalls">
-            <fmt:message bundle="${local}" var="halls_label" key="admin.button_labels.halls"/>
-            <button class="btn btn-primary btn-block" type="submit"><c:out value="${halls_label}"></c:out></button>
-        </form>
-        <form action="controller" method="get">
-            <input type="hidden" name="command" value="listUsers">
-            <fmt:message bundle="${local}" var="users_label" key="admin.button_labels.users"/>
-            <button class="btn btn-primary btn-block" type="submit"><c:out value="${users_label}"></c:out></button>
-        </form>
-    </div>
-    <div class="form-wrapper-right">
-        <tags:logout userLogin="${user.login}" userName="${user.name}" curr_lang="${locale}"/>
-        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
-    </div>
-</div>
+
 <main>
     <div class="container admin-block">
         <fmt:message bundle="${local}" var="exposition_theme" key="exposition_photo.header.exposition_theme"/>

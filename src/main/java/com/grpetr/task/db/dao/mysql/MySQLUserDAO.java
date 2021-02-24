@@ -2,6 +2,7 @@ package com.grpetr.task.db.dao.mysql;
 
 import com.grpetr.task.db.constant.AccessLevel;
 import com.grpetr.task.db.DBManager;
+import com.grpetr.task.db.constant.Language;
 import com.grpetr.task.db.dao.UserDAO;
 import com.grpetr.task.db.entity.User;
 
@@ -33,6 +34,8 @@ public class MySQLUserDAO implements UserDAO {
             "SELECT id, email, login, access_level, name FROM users " +
                     "ORDER BY access_level LIMIT ? OFFSET ?";
     private static final String GET_NUMBER_OF_USERS = "SELECT COUNT(*) as users_number FROM users";
+    private static final String SET_USER_LANGUAGE = "UPDATE users SET user_language = ? WHERE id = ?";
+    private static final String GET_USER_LANGUAGE = "SELECT user_language FROM users WHERE id = ?";
 
     /**
      * @param login
@@ -192,6 +195,28 @@ public class MySQLUserDAO implements UserDAO {
             res = resultSet.getInt("users_number");
         }
         return res;
+    }
+
+    @Override
+    public void setUserLanguage(Connection con, int user_id, String language) throws SQLException {
+        PreparedStatement pstmt = null;
+        pstmt = con.prepareStatement(SET_USER_LANGUAGE);
+        pstmt.setInt(2,user_id);
+        pstmt.setString(1, language);
+        pstmt.executeUpdate();
+    }
+
+    @Override
+    public Language getUserLanguage(Connection con, int user_id) throws SQLException {
+        PreparedStatement pstmt = null;
+        pstmt = con.prepareStatement(GET_USER_LANGUAGE);
+        pstmt.setInt(1,user_id);
+        Language language = null;
+        ResultSet resultSet = pstmt.executeQuery();
+        while (resultSet.next()){
+            language = Language.valueOf(resultSet.getString("user_language"));
+        }
+        return language;
     }
 }
 

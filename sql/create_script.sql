@@ -15,6 +15,7 @@ CREATE TABLE `users` (
   `passhash` varchar(355) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `access_level` enum('admin','user') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(355) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_language` enum('en','ru') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)

@@ -46,7 +46,7 @@
     </div>
     <div class="form-wrapper-right">
         <tags:logout userLogin="${user.login}" userName="${user.name}" curr_lang="${locale}"/>
-        <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
+        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
     </div>
 </div>
 <main>

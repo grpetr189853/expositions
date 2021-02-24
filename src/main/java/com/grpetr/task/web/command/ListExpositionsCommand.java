@@ -2,9 +2,11 @@ package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.constant.AccessLevel;
+import com.grpetr.task.db.constant.Language;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.ExpositionDAO;
 import com.grpetr.task.db.entity.Exposition;
+import com.grpetr.task.db.entity.User;
 import com.grpetr.task.exception.AppException;
 import com.grpetr.task.web.constants.Path;
 import com.grpetr.task.web.result.CommandResult;
@@ -88,6 +90,7 @@ public class ListExpositionsCommand extends Command {
 
         HttpSession session = request.getSession();
         log.debug("Command finished");
+
         if (session.getAttribute("userRole") == AccessLevel.ADMIN) {
             return new ForwardResult(Path.PAGE__ADMIN_EXPOSITIONS);
         } else if (session.getAttribute("userRole") == AccessLevel.USER) {

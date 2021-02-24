@@ -35,13 +35,14 @@
         </form>
         <form action="controller" method="get">
             <input type="hidden" name="command" value="showBoughtTickets">
+            <fmt:message bundle="${local}" var="show_bought_tickets" key="user.buttons.show_bought_tickets"/>
             <input type="hidden" name="userId" value="${user.userId}">
-            <button class="btn btn-primary btn-block" type="submit">Просмотреть купленные билеты</button>
+            <button class="btn btn-primary btn-block" type="submit">${show_bought_tickets}</button>
         </form>
     </div>
     <div class="form-wrapper-right">
         <tags:logout userLogin="${user.login}" userName="${user.name}" curr_lang="${locale}"/>
-        <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
+        <tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>
     </div>
 </div>
 <main>

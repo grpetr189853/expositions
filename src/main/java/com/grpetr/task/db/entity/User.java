@@ -1,6 +1,7 @@
 package com.grpetr.task.db.entity;
 
 import com.grpetr.task.db.constant.AccessLevel;
+import com.grpetr.task.db.constant.Language;
 import org.apache.log4j.Logger;
 
 import java.math.BigInteger;
@@ -16,6 +17,7 @@ public class User {
     private String email;
     private AccessLevel accessLevel;
     private String name;
+    private Language language;
 
     public User(String login) {
         this.login = login;
@@ -112,6 +114,14 @@ public class User {
         this.accessLevel = accessLevel;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -120,6 +130,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", accessLevel=" + accessLevel +
                 ", name='" + name + '\'' +
+                ", language='" + language + '\'' +
                 '}';
     }
 }

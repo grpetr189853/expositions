@@ -2,6 +2,7 @@ package com.grpetr.task.web.command;
 
 import com.grpetr.task.db.DBManager;
 import com.grpetr.task.db.constant.AccessLevel;
+import com.grpetr.task.db.constant.Language;
 import com.grpetr.task.db.dao.DAOFactory;
 import com.grpetr.task.db.dao.UserDAO;
 import com.grpetr.task.db.entity.User;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class LoginCommand extends Command {
 
@@ -109,7 +111,37 @@ public class LoginCommand extends Command {
             log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
 
         }
-
+        /******RESTORE USER LANGUAGE******/
+        try {
+            con = DBManager.getInstance().getConnection();
+            Language language = daoFactory.getUserDAO().getUserLanguage(con, user.getUserId());
+            session.setAttribute("locale", new Locale(String.valueOf(language)));
+            con.commit();
+        } catch (SQLException e){
+            log.error("Cannot get expositions list", e);
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            if (con != null) {
+                try {
+                    con.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            throw new AppException("Cannot obtain expositions list", e);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        /******RESTORE USER LANGUAGE******/
         log.debug("Command finished");
         return new ForwardResult(forward);
     }

@@ -111,7 +111,15 @@
                                                 <span>${photo_label}</span>
                                             </div>
                                             <div class="test-buttons-wrapper text-center">
-                                                <a href="" class="test-button">${details}</a>
+                                                <form action="controller">
+                                                    <fmt:message bundle="${local}" key="admin.button_labels.show_exposition_picture"
+                                                                 var="show_exposition_picture_label"/>
+                                                    <input type="hidden" name="command" value="showExpositionPhoto">
+                                                    <input type="hidden" name="exposition_id" value="${exposition.id}">
+                                                    <input class="test-button" type="submit"
+                                                           value="DETAILS">
+                                                </form>
+                                                <%--<a href="" class="test-button">${details}</a>--%>
                                             </div>
                                         </div>
                                     </div>
