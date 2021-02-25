@@ -1,5 +1,8 @@
 package com.grpetr.task.db.entity;
 
+/**
+ * Simple entity for Hall
+ */
 public class Hall {
     private int id;
     private String hallName;

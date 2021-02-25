@@ -71,8 +71,10 @@ ALTER TABLE exposition_halls ADD FOREIGN KEY (halls_id) REFERENCES halls (id) ON
 
 
 -- insert into users
-insert into users (email, login, passhash, access_level, name) values ('admin@admin.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'admin');
-insert into users (email, login, passhash, access_level, name) values ('grpetr189853@gmail.com', 'grpetr189853', 'b557ccf4f6f39b34d126a3bf4d730956', 'user', 'grpetr189853');
+insert into users (email, login, passhash, access_level, name, user_language) values ('admin@admin.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'admin', 'ru');
+insert into users (email, login, passhash, access_level, name, user_language) values ('grpetr189853@gmail.com', 'grpetr189853', 'b557ccf4f6f39b34d126a3bf4d730956', 'user', 'grpetr189853', 'en');
+insert into users (email, login, passhash, access_level, name, user_language) values ('exposition_fan@gmail.com', 'exposition_fan', 'b557ccf4f6f39b34d126a3bf4d730956', 'user', 'exposition_fan', 'en');
+
 
 -- INSERT INTO EXPOSITIONS--
 insert into exposition (theme, ticket_price, date_in , date_out, tickets_count, img_name) values("Мой путь, то костер, то георгины", 500, "2008-10-23","2008-10-23",500,"1.jpg");

@@ -1,5 +1,8 @@
 package com.grpetr.task.db.entity;
 
+/**
+ * Simple Entity for ExpositionHall
+ */
 public class ExpositionHall {
     private int id;
     private int expositionId;

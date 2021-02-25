@@ -8,6 +8,9 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
 
+/**
+ * Class with connection to database
+ */
 public class DBManager {
     private final static Logger LOG = Logger.getLogger(DBManager.class);
     private static DBManager instance;

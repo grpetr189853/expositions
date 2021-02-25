@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="username" uri="/WEB-INF/tld/usernameDescriptor.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:choose>
     <c:when test="${locale == 'ru'}">
@@ -21,7 +22,7 @@
 <fmt:setBundle basename="local" var="local"/>
 <html>
 <head>
-    <title>Edit Exposition</title>
+    <title>Edit Exposition <username:usernameTagHandler userId="${user.userId}" lang="${locale}"/></title>
     <link href="<c:url value="/css/bootstrap.min.css" />" type="text/css" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>

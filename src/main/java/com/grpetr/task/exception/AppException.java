@@ -1,5 +1,8 @@
 package com.grpetr.task.exception;
 
+/**
+ * Application Exception
+ */
 public class AppException extends Exception {
 
     private static final long serialVersionUID = 8288779062647218916L;

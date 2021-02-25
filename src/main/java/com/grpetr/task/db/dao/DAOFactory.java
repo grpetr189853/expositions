@@ -1,5 +1,8 @@
 package com.grpetr.task.db.dao;
 
+/**
+ * DAO FACTORY
+ */
 public abstract class DAOFactory {
 
     private static String daoFQN = null;

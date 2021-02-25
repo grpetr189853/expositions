@@ -2,6 +2,9 @@ package com.grpetr.task.db.constant;
 
 import com.grpetr.task.db.entity.User;
 
+/**
+ * Enum with possible Languages
+ */
 public enum Language {
     ru, en;
     public static Language getLanguage(User user){

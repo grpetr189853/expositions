@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="username" uri="/WEB-INF/tld/usernameDescriptor.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <c:choose>
@@ -22,7 +23,7 @@
 <fmt:setBundle basename="local" var="local"/>
 <html>
 <head>
-    <title>Expositions</title>
+    <title>Expositions </title>
     <link href="<c:url value="/css/bootstrap.min.css" />" type="text/css" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>

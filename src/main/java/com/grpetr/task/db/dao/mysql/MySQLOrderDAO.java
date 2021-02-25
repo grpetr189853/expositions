@@ -11,15 +11,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data access object for Order entity
+ */
 public class MySQLOrderDAO implements OrderDAO {
-    private final static String SET_NEW_ORDER =
+    private static final String SET_NEW_ORDER =
             "INSERT INTO orders (user_id,  date_in, date_out, exposition_id, additional_info, cost) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
-    private final static String EDIT_ORDER =
+    private static final String EDIT_ORDER =
             "UPDATE orders SET user_id=?, places=?, class=?, date_in=?, date_out=?, " +
                     "order_apt_id=NULL, status='REQUESTED', cost=NULL " +
                     "WHERE id=?";
-    private final static String GET_USERS_ORDERS =
+    private static final String GET_USERS_ORDERS =
             "SELECT o.id, o.user_id, o.exposition_id, o.date_in, o.date_out," +
                     "o.additional_info, o.cost AS cost, ex.theme  FROM " +
                     "orders AS o " +
@@ -34,6 +37,7 @@ public class MySQLOrderDAO implements OrderDAO {
     private static final String GET_NUMBER_OF_TICKETS = "SELECT COUNT(*) as tickets_number FROM orders";
 
     /**
+     * Sets new Order
      * @param con
      * @param userId
      * @param expositionId
@@ -63,6 +67,7 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
+     * Edit Order
      * @param con
      * @param userId
      * @param expositionId
@@ -107,6 +112,7 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
+     * Gets User Tickets
      * @param con
      * @param userId
      * @param offset
@@ -150,6 +156,7 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
+     * Shows bought orders
      * @param con
      * @param expositionId
      * @return
@@ -185,6 +192,7 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
+     * Checks tickets count
      * @param con
      * @param expositionId
      * @return
@@ -203,6 +211,7 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     /**
+     * Updates tickets count
      * @param con
      * @param newTicketsCount
      * @param expositionId
@@ -217,6 +226,12 @@ public class MySQLOrderDAO implements OrderDAO {
 
     }
 
+    /**
+     * Gets tickets Number
+     * @param con
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int getTicketsNumber(Connection con) throws SQLException {
         int res = 0;

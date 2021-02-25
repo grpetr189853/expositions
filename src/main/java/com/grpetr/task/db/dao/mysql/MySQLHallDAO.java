@@ -9,9 +9,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data access object for Hall entity
+ */
 public class MySQLHallDAO implements HallDAO {
     private static final String SET_NEW_HALL = "INSERT INTO halls (hall_name) VALUES (?) ";
-    private final static String GET_ALL_HALLS =
+    private static final String GET_ALL_HALLS =
             "SELECT id, hall_name FROM halls LIMIT ? OFFSET ? ";
     private static final String DELETE_HALL_BY_YALL_ID = "DELETE FROM halls WHERE id = ?";
     private static final String GET_NUMBER_OF_HALLS = "SELECT COUNT(*) as halls_number FROM halls";
@@ -23,6 +26,7 @@ public class MySQLHallDAO implements HallDAO {
     private static final String GET_HALL_BY_ID = "SELECT id, hall_name from halls WHERE id = ?";
 
     /**
+     * Sets New Hall
      * @param con
      * @param hallName
      * @return
@@ -45,6 +49,7 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
+     * Gets Hall by id
      * @param con
      * @param hallId
      * @return
@@ -73,6 +78,7 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
+     * Gets All Halls
      * @param con
      * @param limit
      * @param offset
@@ -102,6 +108,7 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
+     * Deletes Hall
      * @param con
      * @param hallId
      * @return
@@ -117,6 +124,7 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
+     * Gets Hall Number
      * @param con
      * @return
      * @throws SQLException
@@ -135,6 +143,7 @@ public class MySQLHallDAO implements HallDAO {
     }
 
     /**
+     * Checks wether Hall is Occupied at this time
      * @param con
      * @param hall_id
      * @param checkDate

@@ -2,6 +2,9 @@ package com.grpetr.task.db.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Simple Entity for Order
+ */
 public class Order {
     private int id;
     private int userId;

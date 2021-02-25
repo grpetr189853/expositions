@@ -2,6 +2,9 @@ package com.grpetr.task.db.constant;
 
 import com.grpetr.task.db.entity.User;
 
+/**
+ * Enum with possible user's access levels
+ */
 public enum AccessLevel {
     USER, ADMIN;
 

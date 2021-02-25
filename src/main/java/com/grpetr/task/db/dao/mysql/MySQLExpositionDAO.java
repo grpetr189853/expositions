@@ -18,10 +18,10 @@ import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
  * Data access object for Exposition entity.
  */
 public class MySQLExpositionDAO implements ExpositionDAO {
-    private final static String SET_NEW_EXPOSITION =
+    private static final String SET_NEW_EXPOSITION =
             "INSERT INTO exposition (theme, date_in, date_out, ticket_price, tickets_count,img_name) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
-    private final static String GET_ALL_EXPOSITIONS =
+    private static final String GET_ALL_EXPOSITIONS =
             "SELECT exposition.id, theme, ticket_price, date_in, date_out, tickets_count, img_name, " +
                     "(select GROUP_CONCAT(h.hall_name) from halls h " +
                     "LEFT JOIN exposition_halls ON exposition_halls.halls_id = h.id " +
@@ -38,7 +38,7 @@ public class MySQLExpositionDAO implements ExpositionDAO {
 
     private static final String DELETE_EXPOSITION_HALLS_BY_EXPOSITION_ID = "DELETE FROM exposition_halls WHERE exposition_id = ?";
     private static final String DELETE_EXPOSITION_BY_EXPOSITION_ID = "DELETE FROM exposition WHERE id = ?";
-    private final static String SET_NEW_EXPOSITION_HALL =
+    private static final String SET_NEW_EXPOSITION_HALL =
             "INSERT INTO exposition_halls (exposition_id, halls_id) VALUES (?,?)";
     private static final String GET_NUMBER_OF_EXPOSITIONS = "SELECT COUNT(*) as expositions_number FROM exposition";
     private static final String GET_EXPOSITION_HALLS = "select halls.id as hall_Ids, halls.hall_name as hall_name from halls " +
@@ -116,6 +116,18 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         }
     }
 
+    /**
+     * Edit Exposition
+     * @param con
+     * @param expositionId
+     * @param theme
+     * @param ticketPrice
+     * @param ticketsCount
+     * @param dateIn
+     * @param dateOut
+     * @param imgName
+     * @throws SQLException
+     */
     @Override
     public void editExposition(Connection con, int expositionId, String theme, int ticketPrice, int ticketsCount,
                                LocalDate dateIn, LocalDate dateOut, String imgName) throws SQLException {
@@ -265,6 +277,12 @@ public class MySQLExpositionDAO implements ExpositionDAO {
         return res;
     }
 
+    /**
+     * Deletes Exposition Hall
+     * @param con
+     * @param expositionId
+     * @throws SQLException
+     */
     public void deleteAllExpositionHalls(Connection con, int expositionId) throws SQLException {
         PreparedStatement pstmt = null;
 

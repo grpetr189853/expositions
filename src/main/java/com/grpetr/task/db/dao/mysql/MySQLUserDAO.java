@@ -22,15 +22,15 @@ import java.util.List;
  */
 public class MySQLUserDAO implements UserDAO {
 
-    private final static String LOGIN_ATTEMPT =
+    private static final String LOGIN_ATTEMPT =
             "SELECT id, access_level, users.name, email FROM users WHERE login=? AND passhash=?";
-    private final static String REGISTER_ATTEMPT =
+    private static final String REGISTER_ATTEMPT =
             "INSERT INTO users (login, passhash, email, access_level, name) " +
                     "VALUES (?, ?, ?, 'user', ?)";
-    private final static String GET_USER_BY_ID =
+    private static final String GET_USER_BY_ID =
             "SELECT id, email, login, access_level, name FROM users " +
                     "WHERE id=?";
-    private final static String GET_ALL_USERS =
+    private static final String GET_ALL_USERS =
             "SELECT id, email, login, access_level, name FROM users " +
                     "ORDER BY access_level LIMIT ? OFFSET ?";
     private static final String GET_NUMBER_OF_USERS = "SELECT COUNT(*) as users_number FROM users";
@@ -38,6 +38,7 @@ public class MySQLUserDAO implements UserDAO {
     private static final String GET_USER_LANGUAGE = "SELECT user_language FROM users WHERE id = ?";
 
     /**
+     * Logs in User
      * @param login
      * @param password
      * @return whether User is logged or not
@@ -89,6 +90,7 @@ public class MySQLUserDAO implements UserDAO {
 
 
     /**
+     * Register User
      * @param name
      * @param login
      * @param password
@@ -110,6 +112,7 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     /**
+     * Gets User by Id
      * @param id
      * @return User entity.
      * @throws SQLException
@@ -151,6 +154,7 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     /**
+     * Gets all Users
      * @param limit
      * @param offset
      * @return
@@ -184,6 +188,12 @@ public class MySQLUserDAO implements UserDAO {
         return res;
     }
 
+    /**
+     * Gets Users Number
+     * @param con
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int getUsersNumber(Connection con) throws SQLException {
         int res = 0;
@@ -197,6 +207,13 @@ public class MySQLUserDAO implements UserDAO {
         return res;
     }
 
+    /**
+     * Sets User language
+     * @param con
+     * @param user_id
+     * @param language
+     * @throws SQLException
+     */
     @Override
     public void setUserLanguage(Connection con, int user_id, String language) throws SQLException {
         PreparedStatement pstmt = null;
@@ -206,6 +223,13 @@ public class MySQLUserDAO implements UserDAO {
         pstmt.executeUpdate();
     }
 
+    /**
+     * Gets User language
+     * @param con
+     * @param user_id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Language getUserLanguage(Connection con, int user_id) throws SQLException {
         PreparedStatement pstmt = null;

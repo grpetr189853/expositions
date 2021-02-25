@@ -10,6 +10,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Simple Entity for User
+ */
 public class User {
     private final static Logger LOG = Logger.getLogger(User.class);
     private int userId;
@@ -30,24 +33,6 @@ public class User {
         this.name = name;
     }
 
-    /*
-    public User(String name, String login, String email, String password) throws LoginException{
-        this.login = login;
-        if (checkEmail(email)) {
-            boolean completed = DBManager.getInstance().register(DBManager.getInstance().getConnection(), name, this.login, hash(password), email);
-            if (!completed) {
-                throw new LoginException(String.valueOf(1));
-            }
-        }
-        else {
-            throw new LoginException(String.valueOf(0));
-        }
-    }
-
-    public User logIn(String login, String password) throws LoginException {
-        return DBManager.getInstance().login(login, hash(password));
-    }
-    */
     private boolean checkEmail(String email) {
         String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

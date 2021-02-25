@@ -17,6 +17,7 @@ public class Path {
     public static final String PAGE__ADMIN_EDIT_EXPOSITION = "/jsp/admin/edit_exposition.jsp";
     public static final String PAGE__ADMIN_EXPOSITION_PHOTO = "/jsp/admin/exposition_photo.jsp";
     public static final String PAGE__NON_AUTHORIZED_USER_EXPOSITION_PHOTO ="/jsp/non-authorized/exposition_photo.jsp";
+    // commands
     public static final String COMMAND__LIST_EXPOSITIONS = "/controller?command=listExpositions";
     public static final String COMMAND__LIST_HALLS = "/controller?command=listHalls";
 

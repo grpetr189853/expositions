@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 /**
  * Encoding filter.
  *
- * @author D.Kolesnikov
+ *
  */
 public class EncodingFilter implements Filter {
 

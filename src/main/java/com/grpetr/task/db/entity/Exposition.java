@@ -2,6 +2,9 @@ package com.grpetr.task.db.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Simple Entity for Expositions
+ */
 public class Exposition {
     private int id;
     private String theme;

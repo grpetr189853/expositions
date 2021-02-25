@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="username" uri="/WEB-INF/tld/usernameDescriptor.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:choose>
     <c:when test="${locale == 'ru'}">
@@ -21,7 +22,7 @@
 
 <html>
 <head>
-    <title>Exposition Photo</title>
+    <title>Exposition Photo <username:usernameTagHandler userId="${user.userId}" lang="${locale}"/></title>
     <link href="<c:url value="/css/bootstrap.min.css" />" type="text/css" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <!-- Fonts -->
