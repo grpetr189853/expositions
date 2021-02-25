@@ -58,7 +58,7 @@
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="create_hall" key="create_hall.button_label"/>
                         <label for="hall_name">${create_hall}</label>
-                        <input type="text" name="hall_name" class="form-control" id="hall_name">
+                        <input type="text" name="hall_name" class="form-control" id="hall_name" required>
                     </div>
                     <input type="submit" class="btn btn-primary btn-block">
                     <input type="hidden" name="command" value="createHall">

@@ -60,39 +60,39 @@
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="theme_label" key="edit_exposition.label.theme"/>
                         <label for="theme">${theme_label}</label>
-                        <input type="text" name="theme" class="form-control" value="${exposition.theme}" id="theme">
+                        <input type="text" name="theme" class="form-control" value="${exposition.theme}" id="theme" required>
                     </div>
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="ticket_price_label"
                                      key="edit_exposition.label.ticket_price"/>
                         <label for="ticket_price">${ticket_price_label}</label>
                         <input type="text" name="ticket_price" class="form-control" value="${exposition.ticketPrice}"
-                               id="ticket_price">
+                               id="ticket_price" required>
                     </div>
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="tickets_count_label"
                                      key="edit_exposition.label.tickets_count"/>
                         <label for="tickets_count">${tickets_count_label}</label>
                         <input type="text" name="tickets_count" class="form-control" value="${exposition.ticketsCount}"
-                               id="tickets_count">
+                               id="tickets_count" required>
                     </div>
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="start_date_label" key="edit_exposition.label.start_date"/>
                         <label for="date_in">${start_date_label}</label>
                         <input type="date" name="date_in" class="form-control" value="${exposition.dateIn}"
-                               id="date_in">
+                               id="date_in" required>
                     </div>
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="end_date_label" key="edit_exposition.label.end_date"/>
                         <label for="date_out">${end_date_label}</label>
                         <input type="date" name="date_out" class="form-control" value="${exposition.dateOut}"
-                               id="date_out">
+                               id="date_out" required>
                     </div>
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="halls_label" key="edit_exposition.label.halls"/>
                         <label for="halls">${halls_label}</label>
                         <select class="form-select" multiple aria-label="multiple select example" name="halls"
-                                id="halls">
+                                id="halls" required>
                             <c:forEach begin="0" end="${fn:length(halls) - 1}" var="index">
                                 <option <c:choose><c:when test="${selectedHallsChecked.get(index) == 1}"><c:out
                                         value="selected"/></c:when><c:otherwise></c:otherwise></c:choose>
@@ -104,7 +104,7 @@
                     <div class="mb-3 row">
                         <fmt:message bundle="${local}" var="photo_label" key="edit_exposition.label.photo"/>
                         <label for="file">${photo_label}</label>
-                        <input type="file" name="file" value="${exposition.imgName}" class="form-control" id="file">
+                        <input type="file" name="file" value="${exposition.imgName}" class="form-control" id="file" required>
                     </div>
                     <fmt:message bundle="${local}" var="edit_button_label" key="edit_exposition.button_label.create"/>
                     <input type="submit" class="btn btn-primary btn-block" value="${edit_button_label}">

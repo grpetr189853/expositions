@@ -35,27 +35,30 @@
 </div>
 <main>
     <div class="admin-block">
-        <form action="controller" method="get">
-            <fmt:message bundle="${local}" var="start_date" key="nauthorized.label.start_date"/>
-            <fmt:message bundle="${local}" var="end_date" key="nauthorized.label.end_date"/>
-            <fmt:message bundle="${local}" var="filter" key="nauthorized.label.filter"/>
-            <fmt:message bundle="${local}" var="reset_filter" key="nauthorized.label.reset_filter"/>
-            <div class="mb-3 row">
-                <label for="date_in">${start_date}</label>
-                <input type="date" name="date_in" value="${requestScope.date_in}" id="date_in">
-            </div>
-            <div class="mb-3 row">
-                <label for="date_out">${end_date}</label>
-                <input type="date" name="date_out" value="${requestScope.date_out}" id="date_out">
-            </div>
-            <input type="hidden" name="command" value="filterExpositions">
-            <button class="btn btn-primary btn-block" type="submit">${filter}</button>
-        </form>
-        <form action="controller">
-            <input type="hidden" name="command" value="listExpositions">
-            <button class="btn btn-primary btn-block" type="submit">${reset_filter}</button>
+        <div class="wrapper" style="border: 1px solid black;padding: 20px;">
+            <form action="controller" method="get">
+                <fmt:message bundle="${local}" var="start_date" key="nauthorized.label.start_date"/>
+                <fmt:message bundle="${local}" var="end_date" key="nauthorized.label.end_date"/>
+                <fmt:message bundle="${local}" var="filter" key="nauthorized.label.filter"/>
+                <fmt:message bundle="${local}" var="reset_filter" key="nauthorized.label.reset_filter"/>
+                <div class="mb-3 row">
+                    <label for="date_in">${start_date}</label>
+                    <input type="date" name="date_in" value="${requestScope.date_in}" id="date_in">
+                </div>
+                <div class="mb-3 row">
+                    <label for="date_out">${end_date}</label>
+                    <input type="date" name="date_out" value="${requestScope.date_out}" id="date_out">
+                </div>
+                <input type="hidden" name="command" value="filterExpositions">
+                <button class="btn btn-primary btn-block" type="submit">${filter}</button>
+            </form>
+            <form action="controller">
+                <input type="hidden" name="command" value="listExpositions">
+                <button class="btn btn-primary btn-block" type="submit">${reset_filter}</button>
 
-        </form>
+            </form>
+        </div>
+
         <c:choose>
             <c:when test="${showExpositions}">
                 <div class="exposition-cards">
@@ -72,7 +75,7 @@
                         <div class="row">
                             <c:forEach items="${ requestScope.expositions}" var="exposition">
                                 <div class="col-md-3">
-                                    <div class="card h-100">
+                                    <div class="card">
                                         <div class="card-header">
                                             <img src="<c:out value="img/"/>${exposition.imgName}"
                                                  alt="Exposition Photo">

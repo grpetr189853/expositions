@@ -160,7 +160,7 @@
                     <fmt:message bundle="${local}" key="user.label.additional_info" var="additional_info"/>
                     <input type="hidden" name="command" value="createOrder">
                     <label for="additional_info">${additional_info}</label>
-                    <textarea name="additional_info" id="additional_info" cols="30" rows="1"></textarea>
+                    <textarea name="additional_info" id="additional_info" cols="30" rows="1" required></textarea>
                     <input class="btn btn-primary btn-block" type="submit" value="${buy_ticket}" style="display:block; margin: 20px auto;">
                 </form>
             </c:when>
