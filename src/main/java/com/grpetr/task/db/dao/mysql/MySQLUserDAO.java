@@ -25,8 +25,8 @@ public class MySQLUserDAO implements UserDAO {
     private static final String LOGIN_ATTEMPT =
             "SELECT id, access_level, users.name, email FROM users WHERE login=? AND passhash=?";
     private static final String REGISTER_ATTEMPT =
-            "INSERT INTO users (login, passhash, email, access_level, name) " +
-                    "VALUES (?, ?, ?, 'user', ?)";
+            "INSERT INTO users (login, passhash, email, access_level, name, user_language) " +
+                    "VALUES (?, ?, ?, 'user', ?, 'en')";
     private static final String GET_USER_BY_ID =
             "SELECT id, email, login, access_level, name FROM users " +
                     "WHERE id=?";

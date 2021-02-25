@@ -44,7 +44,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
-                    <input type="text" name="login" class="form-control" placeholder="${login_label}">
+                    <input type="text" name="login" class="form-control" placeholder="${login_label}" required>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="${password_label}">
+                    <input type="password" name="password" class="form-control" placeholder="${password_label}" required>
                 </div>
             </div>
 
