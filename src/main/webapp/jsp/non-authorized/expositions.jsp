@@ -30,6 +30,7 @@
 <body class="admin-page">
 <div class="head-content">
     <div class="form-wrapper-right">
+        <a href="index.jsp" class="btn btn-primary btn-block">Main</a>
         <%--<tags:language curr_lang="${locale}" curr_uri="${pageContext.request.requestURI}"/>--%>
     </div>
 </div>
