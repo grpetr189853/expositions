@@ -122,34 +122,20 @@ public class MySQLUserDAO implements UserDAO {
     public User getUserById(Connection con, int id) throws SQLException, LoginException {
         User user = null;
         PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(GET_USER_BY_ID,
-                    ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
-            pstmt.setInt(1, id);
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-                if (resultSet.first()) {
-                    String login = resultSet.getString("login");
-                    user = new User(login);
-                    user.setUserId(resultSet.getInt("id"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setAccessLevel(AccessLevel.valueOf(resultSet.getString("access_level").toUpperCase()));
-                    user.setName(resultSet.getString("name"));
-                }
-            }
-        } catch (SQLException | IllegalArgumentException ex) {
-            ex.printStackTrace();
-            DBManager.getInstance().rollbackAndClose(con);
-        } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            DBManager.getInstance().commitAndClose(con);
+        pstmt = con.prepareStatement(GET_USER_BY_ID,
+                ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
+        pstmt.setInt(1, id);
+        ResultSet resultSet = pstmt.executeQuery();
+        if (resultSet.first()) {
+            String login = resultSet.getString("login");
+            user = new User(login);
+            user.setUserId(resultSet.getInt("id"));
+            user.setEmail(resultSet.getString("email"));
+            user.setAccessLevel(AccessLevel.valueOf(resultSet.getString("access_level").toUpperCase()));
+            user.setName(resultSet.getString("name"));
         }
+
         return user;
     }
 

@@ -103,17 +103,12 @@ public class MySQLExpositionDAO implements ExpositionDAO {
      * @param hall_id
      */
     @Override
-    public void setNewExpositionHall(Connection con, int newRowId, Integer hall_id) {
+    public void setNewExpositionHall(Connection con, int newRowId, Integer hall_id) throws SQLException {
         PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(SET_NEW_EXPOSITION_HALL, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setInt(1, newRowId);
-            pstmt.setInt(2, hall_id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            DBManager.getInstance().rollbackAndClose(con);
-        }
+        pstmt = con.prepareStatement(SET_NEW_EXPOSITION_HALL, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setInt(1, newRowId);
+        pstmt.setInt(2, hall_id);
+        pstmt.executeUpdate();
     }
 
     /**

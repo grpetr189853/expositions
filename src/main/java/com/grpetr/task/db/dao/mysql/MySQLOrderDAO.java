@@ -86,28 +86,16 @@ public class MySQLOrderDAO implements OrderDAO {
         Date sqlDateIn = Date.valueOf(dateIn);
         Date sqlDateOut = Date.valueOf(dateOut);
         PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(EDIT_ORDER);
-            pstmt.setInt(1, userId);
-            pstmt.setDate(2, sqlDateIn);
-            pstmt.setDate(3, sqlDateOut);
-            pstmt.setInt(4, expositionId);
-            pstmt.setString(5, additionalInfo);
-            pstmt.setInt(6, cost);
-            res = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            DBManager.getInstance().rollbackAndClose(con);
-        } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            DBManager.getInstance().commitAndClose(con);
-        }
+
+        pstmt = con.prepareStatement(EDIT_ORDER);
+        pstmt.setInt(1, userId);
+        pstmt.setDate(2, sqlDateIn);
+        pstmt.setDate(3, sqlDateOut);
+        pstmt.setInt(4, expositionId);
+        pstmt.setString(5, additionalInfo);
+        pstmt.setInt(6, cost);
+        res = pstmt.executeUpdate();
+
         return res;
     }
 

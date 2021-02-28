@@ -13,7 +13,7 @@ public interface ExpositionDAO {
     int setNewExposition(Connection con, String theme, int ticketPrice, int ticketsCount,
                          LocalDate dateIn, LocalDate dateOut, int[] halls_ids, String imgName) throws SQLException;
 
-    void setNewExpositionHall(Connection con, int newRowId, Integer hall_id);
+    void setNewExpositionHall(Connection con, int newRowId, Integer hall_id) throws SQLException;
 
     void editExposition(Connection con, int expositionId, String theme, int ticketPrice, int ticketsCount,
                         LocalDate dateIn, LocalDate dateOut, String imgName) throws SQLException;

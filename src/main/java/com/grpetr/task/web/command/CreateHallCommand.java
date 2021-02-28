@@ -47,7 +47,7 @@ public class CreateHallCommand extends Command {
             HallDAO hallDAO = daoFactory.getHallDAO();
             newRowId = hallDAO.setNewHall(con, hallName);
             if (newRowId != 0) {
-                forward = Path.PAGE__ADMIN_HALLS;
+                forward = Path.COMMAND__LIST_HALLS;
                 request.getSession().setAttribute("sendRedirectHalls", true);
                 log.trace("Set the request attribute: sendRedirectHalls --> " + true);
             }
