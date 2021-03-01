@@ -14,10 +14,6 @@ public interface OrderDAO {
     int setNewOrder(Connection con, int userId, int expositionId, String additionalInfo,
                     int cost, LocalDate dateIn, LocalDate dateOut) throws SQLException;
 
-    int editOrder(Connection con, int userId, int expositionId, String additionalInfo,
-                  int cost, LocalDate dateIn, LocalDate dateOut)
-            throws SQLException;
-
     List<BoughtTicket> getUsersTickets(Connection con, int userId, int offset, int limit) throws SQLException;
 
     List<Statistic> showBoughtOrders(Connection con, int expositionId) throws SQLException;

@@ -18,10 +18,6 @@ public class MySQLOrderDAO implements OrderDAO {
     private static final String SET_NEW_ORDER =
             "INSERT INTO orders (user_id,  date_in, date_out, exposition_id, additional_info, cost) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String EDIT_ORDER =
-            "UPDATE orders SET user_id=?, places=?, class=?, date_in=?, date_out=?, " +
-                    "order_apt_id=NULL, status='REQUESTED', cost=NULL " +
-                    "WHERE id=?";
     private static final String GET_USERS_ORDERS =
             "SELECT o.id, o.user_id, o.exposition_id, o.date_in, o.date_out," +
                     "o.additional_info, o.cost AS cost, ex.theme  FROM " +
@@ -66,38 +62,6 @@ public class MySQLOrderDAO implements OrderDAO {
         return res;
     }
 
-    /**
-     * Edit Order
-     * @param con
-     * @param userId
-     * @param expositionId
-     * @param additionalInfo
-     * @param cost
-     * @param dateIn
-     * @param dateOut
-     * @return
-     * @throws SQLException
-     */
-    @Override
-    public int editOrder(Connection con, int userId, int expositionId, String additionalInfo,
-                         int cost, LocalDate dateIn, LocalDate dateOut)
-            throws SQLException {
-        int res = 0;
-        Date sqlDateIn = Date.valueOf(dateIn);
-        Date sqlDateOut = Date.valueOf(dateOut);
-        PreparedStatement pstmt = null;
-
-        pstmt = con.prepareStatement(EDIT_ORDER);
-        pstmt.setInt(1, userId);
-        pstmt.setDate(2, sqlDateIn);
-        pstmt.setDate(3, sqlDateOut);
-        pstmt.setInt(4, expositionId);
-        pstmt.setString(5, additionalInfo);
-        pstmt.setInt(6, cost);
-        res = pstmt.executeUpdate();
-
-        return res;
-    }
 
     /**
      * Gets User Tickets

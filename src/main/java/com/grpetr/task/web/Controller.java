@@ -74,21 +74,6 @@ public class Controller extends HttpServlet {
         log.debug("Controller finished, now go to forward address --> " + result);
 
         // if the forward address is not null go to the address
-        /*
-        boolean sendRedirect = Boolean.valueOf(request.getParameter("sendRedirect"));
-        if (isError == true || (forward != null && sendRedirect == false)) {
-            RequestDispatcher disp = request.getRequestDispatcher(forward);
-            disp.forward(request, response);
-        } else {
-            Object sendRedirectExpositions = request.getSession().getAttribute("sendRedirectExpositions");
-            Object sendRedirectHalls = request.getSession().getAttribute("sendRedirectHalls");
-            if (sendRedirectExpositions != null && sendRedirectExpositions.equals(true)) {
-                response.sendRedirect("controller?command=listExpositions");
-            } else if (sendRedirectHalls != null && sendRedirectHalls.equals(true)) {
-                response.sendRedirect("controller?command=listHalls");
-            }
-        }
-        */
 
         views.render(result, request, response);
     }
